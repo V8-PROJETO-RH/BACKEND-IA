@@ -1,0 +1,101 @@
+POST http://localhost:8081/cadastro
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=837373DF652D3A616B557F9A59E1AA5C
+cookie: JSESSIONID=837373DF652D3A616B557F9A59E1AA5C
+content-length: 87
+
+{
+  "idUsuario": 0,
+  "nome": "Pedro",
+  "email": "pedro@gmail.com",
+  "senha": "123"
+}
+
+###
+
+GET http://localhost:8081/loginPage
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C12151320D30002A8C143AE90D1A56EC
+cookie: JSESSIONID=837373DF652D3A616B557F9A59E1AA5C
+content-length: 0
+
+###
+
+POST http://localhost:8081/api/login
+Content-Type: application/json
+Content-Length: 87
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C12151320D30002A8C143AE90D1A56EC
+
+{
+  "idUsuario": 0,
+  "nome": "Pedro",
+  "email": "pedro@gmail.com",
+  "senha": "123"
+}
+
+<> 2025-01-21T141633.200.txt
+
+###
+
+POST http://localhost:8081/api/login
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+cookie:
+content-length: 87
+
+{
+  "idUsuario": 0,
+  "nome": "Pedro",
+  "email": "pedro@gmail.com",
+  "senha": "123"
+}
+
+<> 2025-01-21T122539.400.html
+
+###
+
+POST http://localhost:8081/api/cadastro
+Content-Type: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+cookie:
+content-length: 87
+
+{
+  "idUsuario": 0,
+  "nome": "Pedro",
+  "email": "pedro@gmail.com",
+  "senha": "123"
+}
+
+<> 2025-01-21T122004.400.html
+
+###
+
+POST http://localhost:8081/cadastro
+Content-Type: application/json
+Content-Length: 87
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "idUsuario": 0,
+  "nome": "Pedro",
+  "email": "pedro@gmail.com",
+  "senha": "123"
+}
+
+###
+
