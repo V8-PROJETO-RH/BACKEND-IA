@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mvp.backend.backendmvp.model.Vaga;
 import com.mvp.backend.backendmvp.model.dto.funcionario.FuncionarioFrontDTOResposta;
 import com.mvp.backend.backendmvp.model.dto.funcionario.FuncionarioMapper;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

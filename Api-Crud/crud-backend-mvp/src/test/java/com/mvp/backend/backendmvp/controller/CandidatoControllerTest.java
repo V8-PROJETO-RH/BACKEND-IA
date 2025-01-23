@@ -3,7 +3,6 @@ package com.mvp.backend.backendmvp.controller;
 import com.mvp.backend.backendmvp.model.dto.candidato.CandidatoFrontDTOCriacao;
 import com.mvp.backend.backendmvp.model.dto.candidato.CandidatoFrontDTOEdicao;
 import com.mvp.backend.backendmvp.model.dto.candidato.CandidatoFrontDTOResposta;
-import com.mvp.backend.backendmvp.model.dto.candidato.CandidatoPageDTO;
 import com.mvp.backend.backendmvp.service.CandidatoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

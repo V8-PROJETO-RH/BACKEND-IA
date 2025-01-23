@@ -8,9 +8,6 @@ import com.mvp.backend.backendmvp.model.enums.StatusVaga;
 import com.mvp.backend.backendmvp.repository.FuncionarioRepository;
 import com.mvp.backend.backendmvp.repository.VagaRepository;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
