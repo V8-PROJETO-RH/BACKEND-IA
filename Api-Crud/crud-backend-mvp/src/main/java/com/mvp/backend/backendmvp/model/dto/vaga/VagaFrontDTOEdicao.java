@@ -39,5 +39,10 @@ public class VagaFrontDTOEdicao {
     @NotBlank(message = "O status da vaga deve ser informado.")
     private String status;
 
+    @NotBlank(message = "As atribuições da vaga devem ser informadas.")
+    private String atribuicoes;
+
+    @NotBlank(message = "Os benefícios da vaga devem ser informados.")
+    private String beneficios;
 
 }

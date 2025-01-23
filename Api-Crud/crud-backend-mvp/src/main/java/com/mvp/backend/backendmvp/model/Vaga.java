@@ -9,10 +9,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 @Data
@@ -75,6 +77,18 @@ public class Vaga {
     private String modelo;
 
     @NotNull
+    @Column(name = "beneficios", nullable = false)
+    private String beneficios;
+
+    @NotNull
+    @Column(name = "atribuicoes", nullable = false)
+    private String atribuicoes;
+
+    @CreationTimestamp
+    @Column(name = "data_criacao", nullable = false)
+    private LocalDateTime dataCriacao;
+
+    @NotNull
     @Column(name = "estado_logico", nullable = false)
     private Boolean estadoLogico = true; // Tipo booleano com valor padrão true
 
@@ -91,6 +105,9 @@ public class Vaga {
         this.estadoLogico = true;
         this.provas = new ArrayList<>();
         this.funcionario = null;
+        this.beneficios = dto.getBeneficios();
+        this.atribuicoes = dto.getAtribuicoes();
+        this.dataCriacao = LocalDateTime.now();
     }
 
     public Vaga(VagaFrontDTOResposta dto){
@@ -106,5 +123,8 @@ public class Vaga {
         this.estadoLogico = true;
         this.provas = new ArrayList<>();
         this.funcionario = null;
+        this.beneficios = dto.getBeneficios();
+        this.atribuicoes = dto.getAtribuicoes();
+        this.dataCriacao = LocalDateTime.now();
     }
 }

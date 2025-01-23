@@ -69,6 +69,8 @@ public class VagaService {
         vagaAntiga.setStatus(StatusVaga.valueOf(dto.getStatus()));
         vagaAntiga.setRequisitos(dto.getRequisitos());
         vagaAntiga.setModelo(dto.getModelo());
+        vagaAntiga.setAtribuicoes(dto.getAtribuicoes());
+        vagaAntiga.setBeneficios(dto.getBeneficios());
 
         return vagaAntiga;
     }

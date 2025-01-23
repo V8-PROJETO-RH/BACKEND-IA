@@ -31,7 +31,7 @@ class CandidatoControllerTest {
 
     @Test
     void testList() {
-        // Mock para o método list()
+        // Mock para o métod o list()
         List<CandidatoFrontDTOResposta> mockedList = List.of(new CandidatoFrontDTOResposta());
         when(candidatoService.list()).thenReturn(mockedList);
 
