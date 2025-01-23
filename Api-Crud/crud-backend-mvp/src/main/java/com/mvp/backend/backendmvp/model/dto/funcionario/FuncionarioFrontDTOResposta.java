@@ -1,5 +1,6 @@
 package com.mvp.backend.backendmvp.model.dto.funcionario;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mvp.backend.backendmvp.model.Funcionario;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class FuncionarioFrontDTOResposta {
     private long id;
+    @JsonFormat(pattern = "HH:mm:ss dd/MM/yyyy")
     private LocalDateTime dataCriacao;
     private String departamento;
     private String email;

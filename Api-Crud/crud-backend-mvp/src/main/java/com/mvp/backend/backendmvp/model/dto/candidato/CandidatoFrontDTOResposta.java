@@ -1,5 +1,6 @@
 package com.mvp.backend.backendmvp.model.dto.candidato;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mvp.backend.backendmvp.model.Candidato;
 import lombok.Data;
@@ -18,7 +19,9 @@ public class CandidatoFrontDTOResposta {
     private String telefone;
     private String email;
     private String linkedin_profile;
+    @JsonFormat(pattern = "dd/MM/yyyy") // Formato para serialização (resposta JSON)
     private LocalDate data_nascimento;
+    @JsonFormat(pattern = "HH:mm:ss dd/MM/yyyy")
     private LocalDateTime data_criacao;
 
     public CandidatoFrontDTOResposta(Candidato candidato) {

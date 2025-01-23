@@ -1,6 +1,7 @@
 package com.mvp.backend.backendmvp.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.mvp.backend.backendmvp.infra.validation.Telefone;
 import com.mvp.backend.backendmvp.model.dto.funcionario.FuncionarioFrontDTOCriacao;
 import com.mvp.backend.backendmvp.model.dto.funcionario.FuncionarioFrontDTOResposta;
 import jakarta.persistence.*;
@@ -42,6 +43,7 @@ public class Funcionario {
     private String email;
 
     @NotNull
+    @Telefone
     @Column(name = "telefone", nullable = false, length = 20)
     private String telefone;
 

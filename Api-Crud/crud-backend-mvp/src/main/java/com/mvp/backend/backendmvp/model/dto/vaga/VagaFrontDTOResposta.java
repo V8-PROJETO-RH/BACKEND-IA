@@ -1,5 +1,6 @@
 package com.mvp.backend.backendmvp.model.dto.vaga;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mvp.backend.backendmvp.model.Vaga;
 import com.mvp.backend.backendmvp.model.dto.funcionario.FuncionarioFrontDTOResposta;
@@ -27,6 +28,7 @@ public class VagaFrontDTOResposta {
     private FuncionarioFrontDTOResposta funcionario;
     private String atribuicoes;
     private String beneficios;
+    @JsonFormat(pattern = "HH:mm:ss dd/MM/yyyy")
     private LocalDateTime dataCriacao;
 
     public VagaFrontDTOResposta(Vaga vaga) {
