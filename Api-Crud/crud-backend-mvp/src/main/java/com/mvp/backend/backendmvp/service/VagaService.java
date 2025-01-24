@@ -8,6 +8,9 @@ import com.mvp.backend.backendmvp.model.enums.StatusVaga;
 import com.mvp.backend.backendmvp.repository.FuncionarioRepository;
 import com.mvp.backend.backendmvp.repository.VagaRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +27,16 @@ public class VagaService {
 
     private FuncionarioRepository funcionarioRepository;
 
-    public List<VagaFrontDTOResposta> list() {
-        return vagaRepository.findAllAtivos().stream().map(VagaMapper::toDTO).toList();
+    public VagaPageDTO list(@PositiveOrZero int page, @Positive @Max(50) int size) {
+        List<Vaga> vagasAtivas = vagaRepository.findAllAtivos();
+        List<VagaFrontDTOResposta> vagas = vagasAtivas.stream()
+                .skip((long) page * size)
+                .limit(size)
+                .map(VagaMapper::toDTO)
+                .toList();
+        int totalElements = vagasAtivas.size();
+        int totalPages = (int) Math.ceil((double) totalElements / size);
+        return new VagaPageDTO(vagas, totalPages, totalElements);
     }
 
     public VagaFrontDTOResposta create(VagaFrontDTOCriacao dto) {
