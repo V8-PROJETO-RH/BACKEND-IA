@@ -6,6 +6,7 @@ import com.mvp.backend.backendmvp.model.dto.vaga.VagaFrontDTOCriacao;
 import com.mvp.backend.backendmvp.model.dto.vaga.VagaFrontDTOResposta;
 import com.mvp.backend.backendmvp.model.enums.StatusVaga;
 import jakarta.persistence.*;
+import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -99,7 +100,16 @@ public class Vaga {
         this.descricao = dto.getDescricao();
         this.responsavel = dto.getResponsavel();
         this.contratacao = dto.getContratacao();
-        this.status = StatusVaga.valueOf(dto.getStatus());
+
+
+        // Validação personalizada do status
+        try {
+            this.status = StatusVaga.fromString(dto.getStatus());
+        } catch (IllegalArgumentException e) {
+            throw new ConstraintViolationException(e.getMessage(), null); // Lança exceção personalizada
+        }
+
+
         this.requisitos = dto.getRequisitos();
         this.modelo = dto.getModelo();
         this.estadoLogico = true;

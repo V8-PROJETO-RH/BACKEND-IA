@@ -3,16 +3,18 @@ package com.mvp.backend.backendmvp.controller;
 import com.mvp.backend.backendmvp.model.dto.vaga.VagaFrontDTOCriacao;
 import com.mvp.backend.backendmvp.model.dto.vaga.VagaFrontDTOEdicao;
 import com.mvp.backend.backendmvp.model.dto.vaga.VagaFrontDTOResposta;
+import com.mvp.backend.backendmvp.model.dto.vaga.VagaPageDTO;
 import com.mvp.backend.backendmvp.service.VagaService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Validated
 @AllArgsConstructor
@@ -23,8 +25,10 @@ public class VagaController {
     private VagaService vagaService;
 
     @GetMapping
-    public List<VagaFrontDTOResposta> list() {
-        return vagaService.list();
+    public VagaPageDTO list(@RequestParam(defaultValue = "0") @PositiveOrZero int page,
+                            @RequestParam(defaultValue = "10") @Positive @Max(50) int size
+    ) {
+        return vagaService.list(page, size);
     }
 
     @PostMapping

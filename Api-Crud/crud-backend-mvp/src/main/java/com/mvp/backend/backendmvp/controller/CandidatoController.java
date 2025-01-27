@@ -3,16 +3,17 @@ package com.mvp.backend.backendmvp.controller;
 import com.mvp.backend.backendmvp.model.dto.candidato.CandidatoFrontDTOCriacao;
 import com.mvp.backend.backendmvp.model.dto.candidato.CandidatoFrontDTOEdicao;
 import com.mvp.backend.backendmvp.model.dto.candidato.CandidatoFrontDTOResposta;
+import com.mvp.backend.backendmvp.model.dto.candidato.CandidatoPageDTO;
 import com.mvp.backend.backendmvp.service.CandidatoService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Validated
 @AllArgsConstructor
@@ -23,8 +24,9 @@ public class CandidatoController {
     private CandidatoService candidatoService;
 
     @GetMapping
-    public List<CandidatoFrontDTOResposta> list() {
-        return candidatoService.list();
+    public CandidatoPageDTO list(@RequestParam(defaultValue = "0") @PositiveOrZero int page,
+                                 @RequestParam(defaultValue = "10") @Positive @NotNull int size) {
+        return candidatoService.list(page, size);
     }
 
     @PostMapping

@@ -4,6 +4,7 @@ import jakarta.validation.ConstraintViolationException;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("ClassEscapesDefinedScope")
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -73,20 +76,76 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleConstraintViolationException(ConstraintViolationException ex) {
         Map<String, String> fieldErrors = new HashMap<>();
 
-        // Itera sobre as violações e adiciona as mensagens ao mapa
-        ex.getConstraintViolations().forEach(violation -> {
-            String field = violation.getPropertyPath().toString(); // Propriedade inválida
-            String message = violation.getMessage(); // Mensagem de erro
-            fieldErrors.put(field, message);
-        });
+        if (ex.getConstraintViolations() != null) {
+            // Itera sobre violações de validações padrão
+            ex.getConstraintViolations().forEach(violation -> {
+                String field = violation.getPropertyPath().toString();
+                String message = violation.getMessage();
+                fieldErrors.put(field, message);
+            });
+        } else {
+            // Caso seja uma violação manual, adiciona mensagem customizada
+            fieldErrors.put("status", ex.getMessage());
+        }
 
-        // Cria a resposta no formato padronizado
         ErrorResponse response = new ErrorResponse(
                 HttpStatus.BAD_REQUEST,
-                "Erro de validação de restrição nos parâmetros fornecidos.",
+                "Erro de validação nos parâmetros fornecidos.",
                 fieldErrors
         );
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    // Trata a exceção do Status da vaga.
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<GlobalExceptionHandler.ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
+        GlobalExceptionHandler.ErrorResponse response = new GlobalExceptionHandler.ErrorResponse(
+                HttpStatus.BAD_REQUEST,
+                ex.getMessage(),
+                null // Erros de campo não se aplicam aqui
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    // Trata erro de datas inválidas (HttpMessageNotReadableException)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        Throwable cause = ex.getCause();
+        Map<String, String> fieldErrors = new HashMap<>();
+
+        // Caso seja erro relacionado ao formato de data (ex.: "28-13-2023")
+        if (cause instanceof DateTimeParseException) {
+            fieldErrors.put("data_nascimento", "Formato inválido. Use o formato dd/MM/yyyy. Exemplo: 28/11/2004.");
+            ErrorResponse response = new ErrorResponse(
+                    HttpStatus.BAD_REQUEST,
+                    "Erro de desserialização: um campo contém dados inválidos.",
+                    fieldErrors
+            );
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        // Verifica se a exceção contém informações sobre o campo inválido
+        if (ex.getMessage().contains("data_nascimento")) {
+            fieldErrors.put("data_nascimento", "Valor inválido. Certifique-se de usar o formato dd/MM/yyyy. Exemplo: 28/11/2004.");
+        } else if (ex.getMessage().contains("BigDecimal")) {
+            fieldErrors.put("salario", "Valor inválido. Certifique-se de inserir um valor numérico.");
+        } else {
+            fieldErrors.put("cause", "Erro desconhecido na desserialização. Verifique os valores fornecidos." + ex.getMessage());
+        }
+
+        ErrorResponse response = new ErrorResponse(
+                HttpStatus.BAD_REQUEST,
+                "Erro de desserialização: um ou mais campos contêm dados inválidos.",
+                fieldErrors
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+
+
+
 }

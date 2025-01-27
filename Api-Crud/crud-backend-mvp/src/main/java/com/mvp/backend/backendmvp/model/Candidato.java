@@ -1,5 +1,6 @@
 package com.mvp.backend.backendmvp.model;
 
+import com.mvp.backend.backendmvp.infra.validation.Telefone;
 import com.mvp.backend.backendmvp.model.dto.candidato.CandidatoFrontDTOCriacao;
 import com.mvp.backend.backendmvp.model.dto.candidato.CandidatoFrontDTOResposta;
 import jakarta.persistence.*;
@@ -51,6 +52,7 @@ public class Candidato {
 
     @NotBlank
     @Size(max = 20)
+    @Telefone
     @Column(name = "telefone", nullable = false)
     private String telefone;
 

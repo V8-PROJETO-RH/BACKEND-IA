@@ -23,8 +23,16 @@ public class CandidatoService {
 
     private final CandidatoRepository candidatoRepository;
 
-    public List<CandidatoFrontDTOResposta> list() {
-        return candidatoRepository.findAllAtivos().stream().map(CandidatoMapper::toDTO).toList();
+    public CandidatoPageDTO list(@PositiveOrZero int page, @Positive @Max(50) int size) {
+            List<Candidato> candidatosAtivos = candidatoRepository.findAllAtivos();
+            List<CandidatoFrontDTOResposta> candidatos = candidatosAtivos.stream()
+                    .skip((long) page * size)
+                    .limit(size)
+                    .map(CandidatoMapper::toDTO)
+                    .toList();
+            int totalElements = candidatosAtivos.size();
+            int totalPages = (int) Math.ceil((double) totalElements / size);
+            return new CandidatoPageDTO(candidatos, totalPages, totalElements);
     }
 
     public CandidatoFrontDTOResposta create(CandidatoFrontDTOCriacao dto) {
