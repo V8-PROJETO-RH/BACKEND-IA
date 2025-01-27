@@ -33,10 +33,13 @@ import java.util.*;
 @Service
 public class LinkedinOidUserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
+    @Autowired
     CadastroRepository userRepository;
 
+    @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
     private OAuth2AuthorizedClientService authorizedClientService;
 
     @Override
@@ -75,7 +78,7 @@ public class LinkedinOidUserService implements OAuth2UserService<OAuth2UserReque
             return response.getBody();
         } catch (HttpClientErrorException e) {
             if (e.getStatusCode() == HttpStatus.UNAUTHORIZED || e.getStatusCode() == HttpStatus.FORBIDDEN) {
-                throw new RuntimeException("Token inválido ou falta de permissões. Certifique-se de que os escopos r_liteprofile foram configurados e o token é válido.", e);
+                throw new RuntimeException(e.getMessage());
             }
             throw new RuntimeException("Erro ao acessar LinkedIn API. Verifique os detalhes: " + e.getMessage(), e);
         }
