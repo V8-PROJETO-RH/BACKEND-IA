@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -33,6 +34,10 @@ public class UsuarioService {
 
         if (CadastroRepository.existsByEmail(usuario.getEmail())) {
             throw new IllegalArgumentException("Email já está em uso");
+        }
+
+        if (!Objects.equals(usuarioDTO.getSenha(), usuarioDTO.getConfirmarSenha())) {
+            throw new IllegalArgumentException("As senhas não coincidem");
         }
 
         usuario.setEmail(usuarioDTO.getEmail());
