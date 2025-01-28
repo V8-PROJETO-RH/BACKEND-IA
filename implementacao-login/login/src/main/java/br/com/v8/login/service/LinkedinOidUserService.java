@@ -70,6 +70,7 @@ public class LinkedinOidUserService implements OAuth2UserService<OAuth2UserReque
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
         headers.set("X-Restli-Protocol-Version", "2.0.0");
+        headers.set("Accept", "application/json");
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
 

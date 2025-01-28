@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class OAuth2LoginController {
 
-    @GetMapping("/oauth-error")
-    public String redirectError() {
-        return "redirect:/login?error";
+    @GetMapping("/login/oauth2/code/linkedin")
+    public String redirectLogin() {
+        return "redirect:/login?code=linkedin";
     }
+
 }
