@@ -36,4 +36,7 @@ public class UsuarioRegistroDTO {
 
     @NotBlank
     private String senha;
+
+    @NotBlank
+    private String confirmarSenha;
 }

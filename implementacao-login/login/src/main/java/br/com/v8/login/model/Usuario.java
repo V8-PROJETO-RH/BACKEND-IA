@@ -37,6 +37,9 @@ public class Usuario {
     @NotBlank
     private String senha;
 
+    @Transient
+    private String confirmarSenha;
+
     @NotBlank
     private String tipoUsuario;
 
