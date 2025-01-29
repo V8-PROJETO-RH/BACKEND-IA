@@ -1,6 +1,8 @@
 package br.com.v8.login.config;
 
 
+import br.com.v8.login.component.OAuth2LoginSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
@@ -31,21 +33,27 @@ import java.util.Map;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    private OAuth2LoginSuccessHandler successHandler;
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, OAuth2LoginSuccessHandler successHandler) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/cadastro", "/api/login", "/resources/**", "/redirect").permitAll()
                         .anyRequest().authenticated()
                 )
-                .oauth2Login(oauth -> oauth.loginPage("/redirect")
+                .oauth2Login(oauth -> oauth
+                        .loginPage("/redirect")
+                        .successHandler(successHandler)
+                        .defaultSuccessUrl("/home", true)
+                        .failureUrl("/redirect?error=true")
                         .tokenEndpoint(token -> {
                             var defaultMapConverter = new DefaultMapOAuth2AccessTokenResponseConverter();
                             Converter<Map<String, Object>, OAuth2AccessTokenResponse> linkedinMapConverter = tokenResponse -> {
                                 var withTokenType = new HashMap<>(tokenResponse);
                                 withTokenType.put(OAuth2ParameterNames.TOKEN_TYPE, OAuth2AccessToken.TokenType.BEARER.getValue());
-                                return defaultMapConverter.convert(withTokenType);
+                                return  defaultMapConverter.convert(withTokenType);
                             };
                             var httpConverter = new OAuth2AccessTokenResponseHttpMessageConverter();
                             httpConverter.setAccessTokenResponseConverter(linkedinMapConverter);
