@@ -9,6 +9,8 @@
         <option value="$PROJECT_DIR$/sign-up/pom.xml" />
         <option value="$PROJECT_DIR$/sign-in/pom.xml" />
         <option value="$PROJECT_DIR$/login/pom.xml" />
+        <option value="$PROJECT_DIR$/api-sql/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="HttpClientEndpointsTabState">
-    <option name="requestToText" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;aa4d2beeb17bd1edaa077968214f6703cc1ca29f&quot; value=&quot;###&amp;#10;POST http://localhost:8081/api/login&amp;#10;Content-Type: application/json&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;idUsuario&amp;quot;: 0,&amp;#10;  &amp;quot;nome&amp;quot;: &amp;quot;Pedro&amp;quot;,&amp;#10;  &amp;quot;email&amp;quot;: &amp;quot;pedro@gmail.com&amp;quot;,&amp;#10;  &amp;quot;senha&amp;quot;: &amp;quot;123&amp;quot;&amp;#10;}&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
+    <option name="requestToText" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;317c6cc8cddda3b7b7a30ffb4609e3c3586f7bcd&quot; value=&quot;###&amp;#10;POST http://localhost:8081/api/cadastro&amp;#10;Content-Type: application/json&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;nome&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;email&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;dataNasc&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;cpf&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;senha&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;confirmarSenha&amp;quot;: &amp;quot;&amp;quot;&amp;#10;}&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
   </component>
 </project>
