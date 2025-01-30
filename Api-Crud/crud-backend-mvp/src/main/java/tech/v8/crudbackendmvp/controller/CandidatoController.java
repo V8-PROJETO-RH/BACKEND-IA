@@ -8,11 +8,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import tech.v8.crudbackendmvp.model.dto.candidato.CandidatoFrontCriacao;
-import tech.v8.crudbackendmvp.model.dto.candidato.CandidatoFrontEdicao;
-import tech.v8.crudbackendmvp.model.dto.candidato.CandidatoFrontResposta;
-import tech.v8.crudbackendmvp.model.dto.candidato.CandidatoPage;
-import tech.v8.crudbackendmvp.service.CandidatoService;
+import tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoFrontCriacao;
+import tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoFrontEdicao;
+import tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoFrontResposta;
+import tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoPage;
+import tech.v8.crudbackendmvp.service.usuario.CandidatoService;
 
 @Validated
 @AllArgsConstructor
@@ -41,7 +41,7 @@ public class CandidatoController {
             @NotNull(message = "o parâmetro id não pode ser nulo.")
             @Positive(message = "o parâmetro id deve ser positivo.")
             Long id) {
-        return candidatoService.findById(id);
+        return candidatoService.findDTOById(id);
 
     }
 

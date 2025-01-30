@@ -1,4 +1,4 @@
-package tech.v8.crudbackendmvp.model.dto.candidato;
+package tech.v8.crudbackendmvp.model.dto.usuario.candidato;
 
 import java.util.List;
 

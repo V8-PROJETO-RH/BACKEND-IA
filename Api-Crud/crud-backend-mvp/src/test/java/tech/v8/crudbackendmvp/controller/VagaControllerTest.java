@@ -64,11 +64,11 @@ class VagaControllerTest {
     void testFindById() {
         Long id = 1L;
         VagaFrontResposta mockedVaga = new VagaFrontResposta();
-        when(vagaService.findById(id)).thenReturn(mockedVaga);
+        when(vagaService.findDTOById(id)).thenReturn(mockedVaga);
 
         VagaFrontResposta result = vagaController.findById(id);
 
-        verify(vagaService).findById(id);
+        verify(vagaService).findDTOById(id);
         assertNotNull(result);
         assertEquals(mockedVaga, result);
     }

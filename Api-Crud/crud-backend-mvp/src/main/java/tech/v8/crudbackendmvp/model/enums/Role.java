@@ -1,13 +1,13 @@
 package tech.v8.crudbackendmvp.model.enums;
 
-public enum StatusVaga {
-    ABERTA,
-    FECHADA;
+public enum Role {
+    COMUM,
+    RH;
 
     // Mét odo para validar ignorando maiúsculas e minúsculas
-    public static StatusVaga fromString(String value) {
+    public static Role fromString(String value) {
         StringBuilder statusDisponiveis = new StringBuilder();
-        for (StatusVaga status : StatusVaga.values()) {
+        for (Role status : Role.values()) {
             statusDisponiveis.append(status.name()).append(", ");
             if (status.name().equalsIgnoreCase(value)) {
                 return status;
@@ -15,7 +15,6 @@ public enum StatusVaga {
         }
 
         statusDisponiveis = new StringBuilder(statusDisponiveis.substring(0, statusDisponiveis.length() - 2));
-        throw new IllegalArgumentException("Status '" + value + "' inválido. Os status atualmente disponíveis são: " + statusDisponiveis);
+        throw new IllegalArgumentException("Role '" + value + "' inválida. As roles atualmente disponíveis são: " + statusDisponiveis);
     }
-
 }

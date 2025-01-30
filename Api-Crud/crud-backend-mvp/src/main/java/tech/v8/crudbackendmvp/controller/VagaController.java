@@ -43,7 +43,7 @@ public class VagaController {
             @NotNull(message = "o parâmetro id não pode ser nulo.")
             @Positive(message = "o parâmetro id deve ser positivo.")
             Long id) {
-        return vagaService.findById(id);
+        return vagaService.findDTOById(id);
     }
 
     @PutMapping("/{id}")

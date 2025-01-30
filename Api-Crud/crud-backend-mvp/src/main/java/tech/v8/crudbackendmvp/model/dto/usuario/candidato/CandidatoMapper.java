@@ -1,7 +1,8 @@
-package tech.v8.crudbackendmvp.model.dto.candidato;
+package tech.v8.crudbackendmvp.model.dto.usuario.candidato;
 
 import org.springframework.stereotype.Component;
-import tech.v8.crudbackendmvp.model.Candidato;
+import tech.v8.crudbackendmvp.model.usuario.Candidato;
+import tech.v8.crudbackendmvp.model.usuario.Pessoa;
 
 @Component
 public class CandidatoMapper {
@@ -9,8 +10,9 @@ public class CandidatoMapper {
 
     }
 
-    public static Candidato toCandidato(CandidatoFrontResposta dto) {return new Candidato(dto);}
-    public static Candidato toCandidato(CandidatoFrontCriacao dto) {return new Candidato(dto);}
+    public static Candidato toCandidato(CandidatoFrontCriacao dto, Pessoa pessoa) {
+        return new Candidato(dto, pessoa);
+    }
 
     public static CandidatoFrontResposta toDTO(Candidato candidato) {
         if (candidato == null) {
