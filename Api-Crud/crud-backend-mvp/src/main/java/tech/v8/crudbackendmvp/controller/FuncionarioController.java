@@ -7,10 +7,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import tech.v8.crudbackendmvp.model.dto.funcionario.FuncionarioFrontCriacao;
-import tech.v8.crudbackendmvp.model.dto.funcionario.FuncionarioFrontEdicao;
-import tech.v8.crudbackendmvp.model.dto.funcionario.FuncionarioFrontResposta;
-import tech.v8.crudbackendmvp.service.FuncionarioService;
+import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontCriacao;
+import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontEdicao;
+import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontResposta;
+import tech.v8.crudbackendmvp.service.usuario.FuncionarioService;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class FuncionarioController {
             @NotNull(message = "o parâmetro id não pode ser nulo.")
             @Positive(message = "o parâmetro id deve ser positivo.")
             Long id) {
-        return funcionarioService.findById(id);
+        return funcionarioService.findDTOById(id);
     }
 
     @PutMapping("/{id}")

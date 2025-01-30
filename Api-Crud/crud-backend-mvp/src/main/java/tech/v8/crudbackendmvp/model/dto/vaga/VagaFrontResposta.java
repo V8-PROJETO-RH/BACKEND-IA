@@ -2,49 +2,68 @@ package tech.v8.crudbackendmvp.model.dto.vaga;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tech.v8.crudbackendmvp.model.Vaga;
-import tech.v8.crudbackendmvp.model.dto.funcionario.FuncionarioFrontResposta;
-import tech.v8.crudbackendmvp.model.dto.funcionario.FuncionarioMapper;
+import tech.v8.crudbackendmvp.model.vaga.Prova;
+import tech.v8.crudbackendmvp.model.vaga.Vaga;
+import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontResposta;
+import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioMapper;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @NoArgsConstructor
 public class VagaFrontResposta {
     private Long id;
-    private String contratacao;
-    private String descricao;
-    private String modelo;
+
+    private FuncionarioFrontResposta responsavel;
+
+    private List<Prova> provas;
+
     private String nome;
-    private Integer quantidade;
+    private String tipo;
+    private String localidade;
+    private String modelo;
+    private String descricao;
+    private String responsabilidade;
     private String requisitos;
-    private String responsavel;
-    private BigDecimal salario;
-    private String status;
-    private FuncionarioFrontResposta funcionario;
-    private String atribuicoes;
+    @JsonProperty("faixa_salarial")
+    private BigDecimal faixaSalarial;
+    @JsonProperty("regime_contratacao")
+    private String regimeContratacao;
     private String beneficios;
+    private String status;
+    @JsonProperty("quantidade_vagas")
+    private Integer quantidadeVagas;
+    private String atribuicoes;
     @JsonFormat(pattern = "HH:mm:ss dd/MM/yyyy")
+    @JsonProperty("data_criacao")
     private LocalDateTime dataCriacao;
 
     public VagaFrontResposta(Vaga vaga) {
         this.id = vaga.getId();
-        this.contratacao = vaga.getContratacao();
-        this.descricao = vaga.getDescricao();
-        this.modelo = vaga.getModelo();
+
+        this.responsavel = FuncionarioMapper.toDTO(vaga.getResponsavel());
+
+        this.provas = vaga.getProvas();
+
         this.nome = vaga.getNome();
-        this.quantidade = vaga.getQtd();
+        this.tipo = vaga.getTipo();
+        this.localidade = vaga.getLocalidade();
+        this.modelo = vaga.getModelo().name();
+        this.descricao = vaga.getDescricao();
+        this.responsabilidade = vaga.getResponsabilidade();
         this.requisitos = vaga.getRequisitos();
-        this.responsavel = vaga.getResponsavel();
-        this.salario = vaga.getSalario();
-        this.status = vaga.getStatus().name();
-        this.funcionario = FuncionarioMapper.toDTO(vaga.getFuncionario());
-        this.atribuicoes = vaga.getAtribuicoes();
+        this.faixaSalarial = vaga.getFaixaSalarial();
+        this.regimeContratacao = vaga.getRegimeContratacao();
         this.beneficios = vaga.getBeneficios();
+        this.status = vaga.getStatus().name();
+        this.quantidadeVagas = vaga.getQtdVagas();
+        this.atribuicoes = vaga.getAtribuicoes();
         this.dataCriacao = vaga.getDataCriacao();
     }
 }

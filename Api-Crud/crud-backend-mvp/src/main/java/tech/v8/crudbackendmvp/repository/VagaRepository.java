@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import tech.v8.crudbackendmvp.model.Vaga;
+import tech.v8.crudbackendmvp.model.vaga.Vaga;
 
 import java.util.List;
 import java.util.Optional;

@@ -5,11 +5,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import tech.v8.crudbackendmvp.model.dto.candidato.CandidatoFrontCriacao;
-import tech.v8.crudbackendmvp.model.dto.candidato.CandidatoFrontEdicao;
-import tech.v8.crudbackendmvp.model.dto.candidato.CandidatoFrontResposta;
-import tech.v8.crudbackendmvp.model.dto.candidato.CandidatoPage;
-import tech.v8.crudbackendmvp.service.CandidatoService;
+import tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoFrontCriacao;
+import tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoFrontEdicao;
+import tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoFrontResposta;
+import tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoPage;
+import tech.v8.crudbackendmvp.service.usuario.CandidatoService;
 
 import java.util.List;
 
@@ -66,11 +66,11 @@ class CandidatoControllerTest {
     void testFindById() {
         Long id = 1L;
         CandidatoFrontResposta mockedCandidato = new CandidatoFrontResposta();
-        when(candidatoService.findById(id)).thenReturn(mockedCandidato);
+        when(candidatoService.findDTOById(id)).thenReturn(mockedCandidato);
 
         CandidatoFrontResposta result = candidatoController.findById(id);
 
-        verify(candidatoService).findById(id);
+        verify(candidatoService).findDTOById(id);
         assertNotNull(result);
         assertEquals(mockedCandidato, result);
     }

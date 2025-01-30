@@ -5,10 +5,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import tech.v8.crudbackendmvp.model.dto.funcionario.FuncionarioFrontCriacao;
-import tech.v8.crudbackendmvp.model.dto.funcionario.FuncionarioFrontEdicao;
-import tech.v8.crudbackendmvp.model.dto.funcionario.FuncionarioFrontResposta;
-import tech.v8.crudbackendmvp.service.FuncionarioService;
+import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontCriacao;
+import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontEdicao;
+import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontResposta;
+import tech.v8.crudbackendmvp.service.usuario.FuncionarioService;
 
 import java.util.List;
 
@@ -59,11 +59,11 @@ class FuncionarioControllerTest {
     void testFindById() {
         Long id = 1L;
         FuncionarioFrontResposta mockedFuncionario = new FuncionarioFrontResposta();
-        when(funcionarioService.findById(id)).thenReturn(mockedFuncionario);
+        when(funcionarioService.findDTOById(id)).thenReturn(mockedFuncionario);
 
         FuncionarioFrontResposta result = funcionarioController.findById(id);
 
-        verify(funcionarioService).findById(id);
+        verify(funcionarioService).findDTOById(id);
         assertNotNull(result);
         assertEquals(mockedFuncionario, result);
     }

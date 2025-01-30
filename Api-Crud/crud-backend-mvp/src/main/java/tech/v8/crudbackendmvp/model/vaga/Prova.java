@@ -1,14 +1,14 @@
-package tech.v8.crudbackendmvp.model;
+package tech.v8.crudbackendmvp.model.vaga;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,18 +23,17 @@ public class Prova {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vagas_id")
+    @JoinColumn(name = "vaga_id")
     @JsonBackReference
     private Vaga vaga;
+
+    @OneToMany(mappedBy = "prova", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<ResultadoFinal> resultados;
 
     @NotNull
     @Column(name = "descricao", nullable = false)
     private String descricao;
-
-    @CreationTimestamp
-    @Column(name = "data_criacao", nullable = false)
-    private LocalDateTime dataCriacao;
-
 
     @NotNull
     @Column(name = "estado_logico", nullable = false)

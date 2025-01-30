@@ -1,5 +1,6 @@
 package tech.v8.crudbackendmvp.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
@@ -7,12 +8,11 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.v8.crudbackendmvp.exception.ResourceNotFoundException;
-import tech.v8.crudbackendmvp.model.Funcionario;
-import tech.v8.crudbackendmvp.model.Vaga;
+import tech.v8.crudbackendmvp.model.usuario.Funcionario;
+import tech.v8.crudbackendmvp.model.vaga.Vaga;
 import tech.v8.crudbackendmvp.model.dto.vaga.*;
-import tech.v8.crudbackendmvp.model.enums.StatusVaga;
-import tech.v8.crudbackendmvp.repository.FuncionarioRepository;
 import tech.v8.crudbackendmvp.repository.VagaRepository;
+import tech.v8.crudbackendmvp.service.usuario.FuncionarioService;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class VagaService {
 
     private VagaRepository vagaRepository;
 
-    private FuncionarioRepository funcionarioRepository;
+    private FuncionarioService funcionarioService;
 
     public VagaPage list(@PositiveOrZero int page, @Positive @Max(50) int size) {
         List<Vaga> vagasAtivas = vagaRepository.findAllAtivos();
@@ -39,19 +39,38 @@ public class VagaService {
         return new VagaPage(vagas, totalPages, totalElements);
     }
 
+    @Transactional
     public VagaFrontResposta create(VagaFrontCriacao dto) {
-        return toDTO(vagaRepository.save(toVaga(dto)));
+        try {
+            Funcionario funcionarioEncontrado = funcionarioService.getFuncionarioReferenceById(dto.getResponsavel_id());
+
+            Vaga novaVaga = toVaga(dto);
+            novaVaga.setResponsavel(funcionarioEncontrado);
+
+            Vaga vagaSalva = vagaRepository.save(novaVaga);
+
+
+            funcionarioEncontrado.getVagas().add(vagaSalva);
+
+            return toDTO(vagaSalva);
+        }catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException("Funcionário com ID " + dto.getResponsavel_id() + " não encontrado.");
+        }
     }
 
-    public VagaFrontResposta findById(Long id) {
+    public VagaFrontResposta findDTOById(Long id) {
         return vagaRepository.findAtivoById(id).map(VagaMapper::toDTO)
+                .orElseThrow(() -> new ResourceNotFoundException("Vaga de id " + id + " não encontrada."));
+    }
+
+    public Vaga findById(Long id) {
+        return vagaRepository.findAtivoById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Vaga de id " + id + " não encontrada."));
     }
 
     @Transactional
     public VagaFrontResposta update(Long id, VagaFrontEdicao dto) {
-        Vaga vagaAntiga = vagaRepository.findAtivoById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Vaga de id " + id + " não encontrada."));
+        Vaga vagaAntiga = findById(id);
 
         Vaga vagaNova = atualizarAtributos(vagaAntiga, dto);
         return toDTO(vagaRepository.save(vagaNova));
@@ -60,25 +79,29 @@ public class VagaService {
 
     private Vaga atualizarAtributos(Vaga vagaAntiga, VagaFrontEdicao dto) {
 
-        if (dto.getFuncionario_id() != null){
-            Funcionario funcionario = funcionarioRepository.findById(dto.getFuncionario_id())
-                    .orElseThrow(() -> new ResourceNotFoundException("Funcionário de id " + dto.getFuncionario_id() + " não encontrado."));
-
-            vagaAntiga.setFuncionario(funcionario);
+        if (dto.getResponsavel_id() != null){
+            Funcionario funcionario = funcionarioService.getFuncionarioReferenceById(dto.getResponsavel_id());
+            vagaAntiga.setResponsavel(funcionario);
         }
 
+        vagaAntiga.setProvas(dto.getProvas());
 
         vagaAntiga.setNome(dto.getNome());
-        vagaAntiga.setSalario(dto.getSalario());
-        vagaAntiga.setQtd(dto.getQuantidade());
+        vagaAntiga.setTipo(dto.getTipo());
+        vagaAntiga.setLocalidade(dto.getLocalidade());
         vagaAntiga.setDescricao(dto.getDescricao());
-        vagaAntiga.setResponsavel(dto.getResponsavel());
-        vagaAntiga.setContratacao(dto.getContratacao());
-        vagaAntiga.setStatus(StatusVaga.valueOf(dto.getStatus()));
+        vagaAntiga.setResponsabilidade(dto.getResponsabilidade());
         vagaAntiga.setRequisitos(dto.getRequisitos());
-        vagaAntiga.setModelo(dto.getModelo());
-        vagaAntiga.setAtribuicoes(dto.getAtribuicoes());
+        vagaAntiga.setFaixaSalarial(dto.getFaixaSalarial());
+        vagaAntiga.setRegimeContratacao(dto.getRegimeContratacao());
         vagaAntiga.setBeneficios(dto.getBeneficios());
+
+        vagaAntiga.setModelo(dto.getModelo());
+        vagaAntiga.setStatus(dto.getStatus());
+
+        vagaAntiga.setQtdVagas(dto.getQuantidade());
+        vagaAntiga.setAtribuicoes(dto.getAtribuicoes());
+
 
         return vagaAntiga;
     }

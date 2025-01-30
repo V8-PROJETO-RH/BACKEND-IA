@@ -130,7 +130,7 @@ public class GlobalExceptionHandler {
         if (ex.getMessage().contains("data_nascimento")) {
             fieldErrors.put("data_nascimento", "Valor inválido. Certifique-se de usar o formato dd/MM/yyyy. Exemplo: 28/11/2004.");
         } else if (ex.getMessage().contains("BigDecimal")) {
-            fieldErrors.put("salario", "Valor inválido. Certifique-se de inserir um valor numérico.");
+            fieldErrors.put("faixaSalarial", "Valor inválido. Certifique-se de inserir um valor numérico.");
         } else {
             fieldErrors.put("cause", "Erro desconhecido na desserialização. Verifique os valores fornecidos." + ex.getMessage());
         }
