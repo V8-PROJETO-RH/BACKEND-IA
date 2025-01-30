@@ -1,14 +1,15 @@
-package br.com.v8.login;
+package br.com.v8tech.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
-public class LoginApplication {
+@EnableDiscoveryClient
+public class GatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LoginApplication.class, args);
+		SpringApplication.run(GatewayApplication.class, args);
 	}
 
 }
