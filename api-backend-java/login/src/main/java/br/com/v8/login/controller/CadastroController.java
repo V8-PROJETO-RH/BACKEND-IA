@@ -23,6 +23,10 @@ public class CadastroController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
+    public ResponseEntity<?> handleOptions() {
+        return ResponseEntity.ok().build();
+    }
 
     @PostMapping("/cadastro")
     public ResponseEntity<String> registrarUsuario(@Validated @RequestBody UsuarioRegistroDTO usuarioDTO){
