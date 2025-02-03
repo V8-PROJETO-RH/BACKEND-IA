@@ -75,6 +75,21 @@ public class VagaService {
                 .orElseThrow(() -> new ResourceNotFoundException("Vaga de id " + id + " não encontrada."));
     }
 
+    public List<VagaFrontResposta> findByNome(String nome) {
+        return vagaRepository.findAllAtivosByNome(nome).stream()
+                .map(VagaMapper::toDTO).toList();
+    }
+
+    public List<VagaFrontResposta> findByModelo(String modelo) {
+        return vagaRepository.findAllAtivosByModelo(modelo).stream()
+                .map(VagaMapper::toDTO).toList();
+    }
+
+    public List<VagaFrontResposta> findByLocal(String local) {
+        return vagaRepository.findAllAtivosByLocal(local).stream()
+                .map(VagaMapper::toDTO).toList();
+    }
+
     public Vaga getVagaReferenceById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("ID da vaga não pode ser nulo");

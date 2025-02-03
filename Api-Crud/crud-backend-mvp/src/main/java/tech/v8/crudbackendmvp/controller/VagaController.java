@@ -16,7 +16,6 @@ import tech.v8.crudbackendmvp.model.dto.vaga.VagaFrontEdicao;
 import tech.v8.crudbackendmvp.model.dto.vaga.VagaFrontResposta;
 import tech.v8.crudbackendmvp.model.dto.vaga.VagaPage;
 import tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaFrontResposta;
-import tech.v8.crudbackendmvp.model.vaga.Prova;
 import tech.v8.crudbackendmvp.service.ProvaService;
 import tech.v8.crudbackendmvp.service.VagaService;
 
@@ -36,6 +35,21 @@ public class VagaController {
                          @RequestParam(defaultValue = "10") @Positive @Max(50) int size
     ) {
         return vagaService.list(page, size);
+    }
+
+    @GetMapping("/search/nome")
+    public List<VagaFrontResposta> findByNome(@RequestParam(name = "nome_like") String nome) {
+        return vagaService.findByNome(nome);
+    }
+
+    @GetMapping("/search/modelo")
+    public List<VagaFrontResposta> findByModelo(@RequestParam(name = "modelo_like") String modelo) {
+        return vagaService.findByModelo(modelo);
+    }
+
+    @GetMapping("/search/local")
+    public List<VagaFrontResposta> findByLocal(@RequestParam(name = "local_like") String local) {
+        return vagaService.findByLocal(local);
     }
 
     @PostMapping
