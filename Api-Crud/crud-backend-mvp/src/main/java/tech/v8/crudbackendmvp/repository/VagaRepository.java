@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import tech.v8.crudbackendmvp.model.vaga.Vaga;
+import tech.v8.crudbackendmvp.model.vaga.VagaAplicada;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,4 +17,7 @@ public interface VagaRepository extends JpaRepository<Vaga, Long> {
 
     @Query("SELECT v FROM Vaga v WHERE v.estadoLogico = true AND v.id = :id")
     Optional<Vaga> findAtivoById(@Param("id") long id);
+
+    @Query("SELECT va FROM VagaAplicada va WHERE va.vaga.id = :id")
+    List<VagaAplicada> findAllVagasAplicadasByVagaId(Long id);
 }

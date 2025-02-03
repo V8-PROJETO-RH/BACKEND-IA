@@ -2,11 +2,13 @@ package tech.v8.crudbackendmvp.model.usuario;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tech.v8.crudbackendmvp.model.dto.usuario.candidato.experiencias.ExperienciaFrontCriacao;
 import tech.v8.crudbackendmvp.model.enums.Modelo;
 
 import java.time.LocalDate;
@@ -65,4 +67,26 @@ public class DetalhesExperiencias {
     @NotNull
     @Column(name = "data_final", nullable = false)
     private LocalDate dataFinal;
+
+    public DetalhesExperiencias(ExperienciaFrontCriacao dto, Candidato candidato) {
+        this.candidato = candidato;
+
+        this.titulo = dto.getTitulo();
+        this.empresa = dto.getEmpresa();
+        this.descricao = dto.getDescricao();
+        this.localidade = dto.getLocalidade();
+        this.setModelo(dto.getModelo());
+        this.competencias = dto.getCompetencias();
+        this.dataInicio = dto.getDtInicio();
+        this.dataFinal = dto.getDtFinal();
+    }
+
+    public void setModelo(String modelo) {
+        try {
+            this.modelo = Modelo.fromString(modelo);
+        } catch (IllegalArgumentException e) {
+            throw new ConstraintViolationException(e.getMessage(), null);
+        }
+    }
 }
+

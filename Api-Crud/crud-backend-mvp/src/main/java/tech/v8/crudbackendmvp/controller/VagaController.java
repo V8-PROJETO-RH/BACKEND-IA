@@ -9,11 +9,18 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import tech.v8.crudbackendmvp.model.dto.prova.ProvaFrontCriacao;
+import tech.v8.crudbackendmvp.model.dto.prova.ProvaFrontResposta;
 import tech.v8.crudbackendmvp.model.dto.vaga.VagaFrontCriacao;
 import tech.v8.crudbackendmvp.model.dto.vaga.VagaFrontEdicao;
 import tech.v8.crudbackendmvp.model.dto.vaga.VagaFrontResposta;
 import tech.v8.crudbackendmvp.model.dto.vaga.VagaPage;
+import tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaFrontResposta;
+import tech.v8.crudbackendmvp.model.vaga.Prova;
+import tech.v8.crudbackendmvp.service.ProvaService;
 import tech.v8.crudbackendmvp.service.VagaService;
+
+import java.util.List;
 
 @Validated
 @AllArgsConstructor
@@ -22,6 +29,7 @@ import tech.v8.crudbackendmvp.service.VagaService;
 public class VagaController {
 
     private VagaService vagaService;
+    private ProvaService provaService;
 
     @GetMapping
     public VagaPage list(@RequestParam(defaultValue = "0") @PositiveOrZero int page,
@@ -46,6 +54,16 @@ public class VagaController {
         return vagaService.findDTOById(id);
     }
 
+    @GetMapping("/{id}/vagas-aplicadas")
+    @ResponseStatus(HttpStatus.OK)
+    public List<VagaAplicadaFrontResposta> findVagasAplicadasById(
+            @PathVariable
+            @NotNull(message = "o parâmetro id não pode ser nulo.")
+            @Positive(message = "o parâmetro id deve ser positivo.")
+            Long id) {
+        return vagaService.findVagasAplicadasDTOById(id);
+    }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public VagaFrontResposta update(
@@ -65,5 +83,57 @@ public class VagaController {
             @Positive(message = "o parâmetro id deve ser positivo.")
             Long id) {
         vagaService.delete(id);
+    }
+
+    /// Endpoints para a prova.
+
+    @GetMapping("/{id}/provas")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ProvaFrontResposta> findProvasById(
+            @PathVariable
+            @NotNull(message = "o parâmetro id não pode ser nulo.")
+            @Positive(message = "o parâmetro id deve ser positivo.")
+            Long id) {
+        return provaService.findProvasDTOByVagaId(id);
+    }
+
+    @PostMapping("/{id}/provas")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProvaFrontResposta createProva(
+            @PathVariable
+            @NotNull(message = "o parâmetro id não pode ser nulo.")
+            @Positive(message = "o parâmetro id deve ser positivo.")
+            Long id,
+            @RequestBody @Valid
+            ProvaFrontCriacao prova) {
+        return provaService.create(id, prova);
+    }
+
+    @PutMapping("/{id}/provas/{provaId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProvaFrontResposta updateProva(
+            @PathVariable
+            @NotNull(message = "o parâmetro id não pode ser nulo.")
+            @Positive(message = "o parâmetro id deve ser positivo.")
+            Long id,
+            @PathVariable
+            @NotNull(message = "o parâmetro provaId não pode ser nulo.")
+            @Positive(message = "o parâmetro provaId deve ser positivo.")
+            Long provaId, @RequestBody @Valid ProvaFrontCriacao prova) {
+        return provaService.update(provaId, prova);
+    }
+
+    @DeleteMapping("/{id}/provas/{provaId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProva(
+            @PathVariable
+            @NotNull(message = "o parâmetro id não pode ser nulo.")
+            @Positive(message = "o parâmetro id deve ser positivo.")
+            Long id,
+            @PathVariable
+            @NotNull(message = "o parâmetro provaId não pode ser nulo.")
+            @Positive(message = "o parâmetro provaId deve ser positivo.")
+            Long provaId) {
+        provaService.delete(provaId);
     }
 }

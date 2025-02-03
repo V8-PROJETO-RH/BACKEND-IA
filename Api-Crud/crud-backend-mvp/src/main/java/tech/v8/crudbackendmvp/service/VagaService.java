@@ -8,6 +8,8 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.v8.crudbackendmvp.exception.ResourceNotFoundException;
+import tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaFrontResposta;
+import tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaMapper;
 import tech.v8.crudbackendmvp.model.usuario.Funcionario;
 import tech.v8.crudbackendmvp.model.vaga.Vaga;
 import tech.v8.crudbackendmvp.model.dto.vaga.*;
@@ -63,9 +65,22 @@ public class VagaService {
                 .orElseThrow(() -> new ResourceNotFoundException("Vaga de id " + id + " não encontrada."));
     }
 
+    public List<VagaAplicadaFrontResposta> findVagasAplicadasDTOById(Long id) {
+        return vagaRepository.findAllVagasAplicadasByVagaId(id).stream()
+                .map(VagaAplicadaMapper::toDTO).toList();
+    }
+
     public Vaga findById(Long id) {
         return vagaRepository.findAtivoById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Vaga de id " + id + " não encontrada."));
+    }
+
+    public Vaga getVagaReferenceById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("ID da vaga não pode ser nulo");
+        }
+        return vagaRepository.getReferenceById(id);
+
     }
 
     @Transactional

@@ -1,6 +1,7 @@
 package tech.v8.crudbackendmvp.service.usuario;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -8,11 +9,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.v8.crudbackendmvp.exception.ResourceNotFoundException;
 import tech.v8.crudbackendmvp.model.dto.usuario.candidato.*;
+import tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaFrontResposta;
+import tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaMapper;
 import tech.v8.crudbackendmvp.model.usuario.Candidato;
 import tech.v8.crudbackendmvp.model.usuario.Pessoa;
 import tech.v8.crudbackendmvp.repository.usuario.CandidatoRepository;
 
 import java.util.List;
+import java.util.Set;
 
 import static tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoMapper.toCandidato;
 import static tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoMapper.toDTO;
@@ -37,8 +41,9 @@ public class CandidatoService {
     }
 
     @Transactional
-    public CandidatoFrontResposta create(CandidatoFrontCriacao dto) {
+    public CandidatoFrontResposta create(@Valid CandidatoFrontCriacao dto) {
 
+        validateDto(dto);
 
         Pessoa novaPessoa = pessoaService.create(dto);
 
@@ -56,9 +61,22 @@ public class CandidatoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Candidado de id " + id + "não encontrado."));
     }
 
+    public List<VagaAplicadaFrontResposta> findVagasAplicadasDTOById(Long id) {
+        return candidatoRepository.findAllVagasAplicadasByIdCandidato(id).stream()
+                .map(VagaAplicadaMapper::toDTO).toList();
+    }
+
     public Candidato findById(Long id) {
         return candidatoRepository.findAtivoById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Candidado de id " + id + "não encontrado."));
+    }
+
+    public Candidato getCandidatoReferenceById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("ID do candidato não pode ser nulo");
+        }
+        return candidatoRepository.getReferenceById(id);
+
     }
 
     @Transactional
@@ -96,5 +114,23 @@ public class CandidatoService {
 
     public void delete(Long id) {
         candidatoRepository.delete(findById(id));
+    }
+
+    private void validateDto(CandidatoFrontCriacao dto) {
+        // Utilize o jakarta.validation.Validator para validar o DTO
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        // Realiza a validação do DTO
+        Set<ConstraintViolation<CandidatoFrontCriacao>> violations = validator.validate(dto);
+
+        // Caso houver violações, lance uma exceção com as mensagens
+        if (!violations.isEmpty()) {
+            StringBuilder errors = new StringBuilder("Erro de validação:");
+            for (ConstraintViolation<CandidatoFrontCriacao> violation : violations) {
+                errors.append(" ").append(violation.getMessage()).append(";");
+            }
+            throw new IllegalArgumentException(errors.toString());
+        }
     }
 }

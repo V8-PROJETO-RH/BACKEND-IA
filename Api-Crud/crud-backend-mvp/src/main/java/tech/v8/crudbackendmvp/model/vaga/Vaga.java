@@ -41,6 +41,10 @@ public class Vaga {
     @JsonManagedReference
     private List<Prova> provas;
 
+    @OneToMany(mappedBy = "vaga", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<VagaAplicada> vagasAplicadas;
+
     @NotNull
     @Length(min = 4)
     @Column(name = "nome", nullable = false)
@@ -107,6 +111,7 @@ public class Vaga {
     public Vaga(VagaFrontCriacao dto){
         this.responsavel = null;
         this.provas = new ArrayList<>();
+        this.vagasAplicadas = new ArrayList<>();
 
         this.nome = dto.getNome();
         this.tipo = dto.getTipo();

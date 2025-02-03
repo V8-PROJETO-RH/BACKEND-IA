@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -22,6 +23,7 @@ public class PessoaFrontCriacao {
     private String nome;
 
     @NotBlank(message = "O email nao pode estar vazio.")
+    @Email
     private String email;
 
     @NotBlank(message = "O cpf não pode estar vazio.")

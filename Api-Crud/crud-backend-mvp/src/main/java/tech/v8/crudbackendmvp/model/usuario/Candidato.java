@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import tech.v8.crudbackendmvp.infra.validation.Telefone;
 import tech.v8.crudbackendmvp.model.vaga.ResultadoFinal;
-import tech.v8.crudbackendmvp.model.vaga.VagasAplicadas;
+import tech.v8.crudbackendmvp.model.vaga.VagaAplicada;
 import tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoFrontCriacao;
 import tech.v8.crudbackendmvp.model.enums.Genero;
 
@@ -34,7 +34,7 @@ public class Candidato {
     private Pessoa pessoa;
 
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<VagasAplicadas> vagasAplicadas;
+    private List<VagaAplicada> vagasAplicadas;
 
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ResultadoFinal> resultadoProvas;
@@ -50,6 +50,9 @@ public class Candidato {
 
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalhesIdiomas> detalhesIdiomas;
+
+    @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DetalhesExperiencias> detalhesExperiencia;
 
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Certificado> certificados;
@@ -108,6 +111,7 @@ public class Candidato {
         this.detalhesHabilidades = new ArrayList<>();
         this.detalhesFormacao = new ArrayList<>();
         this.detalhesIdiomas = new ArrayList<>();
+        this.detalhesExperiencia = new ArrayList<>();
         this.certificados = new ArrayList<>();
         this.pessoa = pessoa;
 

@@ -50,7 +50,7 @@ public class FuncionarioService {
 
     public Funcionario findById(Long id) {
         if (id == null) {
-            throw new IllegalArgumentException("ID cannot be null.");
+            throw new IllegalArgumentException("ID do funcionário não pode ser nulo");
         }
 
         return funcionarioRepository.findAtivoById(id)
@@ -59,7 +59,7 @@ public class FuncionarioService {
 
     public Funcionario getFuncionarioReferenceById(Long id) {
         if (id == null) {
-            throw new IllegalArgumentException("ID cannot be null.");
+            throw new IllegalArgumentException("ID do funcionário não pode ser nulo");
         }
         return funcionarioRepository.getReferenceById(id);
 

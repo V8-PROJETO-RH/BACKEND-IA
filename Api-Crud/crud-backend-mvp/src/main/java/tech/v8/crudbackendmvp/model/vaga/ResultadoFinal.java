@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
+import tech.v8.crudbackendmvp.model.dto.resultado.ResultadoFrontCriacao;
 import tech.v8.crudbackendmvp.model.usuario.Candidato;
 
 import java.math.BigDecimal;
@@ -39,4 +40,12 @@ public class ResultadoFinal {
 
     @Column(name = "aderencia",  precision = 5, scale = 2, nullable = false)
     private BigDecimal aderencia;
+
+    public ResultadoFinal(ResultadoFrontCriacao dto, VagaAplicada vagaAplicada, Prova prova) {
+        this.prova = prova;
+        this.candidato = vagaAplicada.getCandidato();
+        this.vaga = vagaAplicada.getVaga();
+        this.nota = dto.getNotaProva();
+        this.aderencia = dto.getAderencia();
+    }
 }

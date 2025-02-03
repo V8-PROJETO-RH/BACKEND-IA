@@ -5,10 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tech.v8.crudbackendmvp.model.vaga.Prova;
+import tech.v8.crudbackendmvp.model.dto.prova.ProvaFrontResumo;
+import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontResumo;
 import tech.v8.crudbackendmvp.model.vaga.Vaga;
-import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontResposta;
-import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioMapper;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -20,9 +19,9 @@ import java.util.List;
 public class VagaFrontResposta {
     private Long id;
 
-    private FuncionarioFrontResposta responsavel;
+    private FuncionarioFrontResumo responsavel;
 
-    private List<Prova> provas;
+    private List<ProvaFrontResumo> provas;
 
     private String nome;
     private String tipo;
@@ -47,9 +46,9 @@ public class VagaFrontResposta {
     public VagaFrontResposta(Vaga vaga) {
         this.id = vaga.getId();
 
-        this.responsavel = FuncionarioMapper.toDTO(vaga.getResponsavel());
+        this.responsavel = new FuncionarioFrontResumo(vaga.getResponsavel());
 
-        this.provas = vaga.getProvas();
+        this.provas = vaga.getProvas().stream().map(ProvaFrontResumo::new).toList();
 
         this.nome = vaga.getNome();
         this.tipo = vaga.getTipo();

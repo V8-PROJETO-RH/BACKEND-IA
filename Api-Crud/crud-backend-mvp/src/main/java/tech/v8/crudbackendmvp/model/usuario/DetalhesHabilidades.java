@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tech.v8.crudbackendmvp.model.dto.usuario.candidato.habilidades.HabilidadeFrontCriacao;
 
 @Data
 @NoArgsConstructor
@@ -27,4 +28,9 @@ public class DetalhesHabilidades {
     @Size(max = 255)
     @Column(name = "habilidade", nullable = false)
     private String habilidade;
+
+    public DetalhesHabilidades(HabilidadeFrontCriacao dto, Candidato candidato) {
+        this.habilidade = dto.getHabilidade();
+        this.candidato = candidato;
+    }
 }
