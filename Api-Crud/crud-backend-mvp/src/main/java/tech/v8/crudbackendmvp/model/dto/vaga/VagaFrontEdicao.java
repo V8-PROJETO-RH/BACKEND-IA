@@ -3,17 +3,13 @@ package tech.v8.crudbackendmvp.model.dto.vaga;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import tech.v8.crudbackendmvp.model.vaga.Prova;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Data
 public class VagaFrontEdicao {
 
     private Long responsavel_id;
-
-    private List<Prova> provas;
 
     @NotBlank(message = "O nome da vaga não pode ser vazio.")
     private String nome;

@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tech.v8.crudbackendmvp.infra.validation.Email;
 
 import java.time.LocalDate;
 
@@ -38,11 +38,6 @@ public class PessoaFrontCriacao {
     @JsonFormat(pattern = "dd/MM/yyyy") // Define o formato esperado no JSON
     private LocalDate dataNascimento;
 
-    @NotBlank(message = "A senha não pode estar vazia.")
-    private String senha;
-
-    @NotBlank(message = "A role não pode estar vazia.")
-    private String role;
 
 
 }

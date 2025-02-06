@@ -3,13 +3,13 @@ package tech.v8.crudbackendmvp.model.usuario;
 
 import jakarta.persistence.*;
 import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
+import tech.v8.crudbackendmvp.infra.validation.Email;
 import tech.v8.crudbackendmvp.model.dto.usuario.pessoa.PessoaFrontCriacao;
 import tech.v8.crudbackendmvp.model.enums.Role;
 
@@ -55,11 +55,6 @@ public class Pessoa {
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
-    @NotBlank
-    @Size(max = 255)
-    @Column(name = "senha", nullable = false)
-    private String senha;
-
     @NotNull
     @Enumerated(EnumType.STRING) // Converter para String no banco
     @Column(name = "role", length = 45)
@@ -73,8 +68,6 @@ public class Pessoa {
         this.email = dto.getEmail();
         this.cpf = dto.getCpf();
         this.dataNascimento = dto.getDataNascimento();
-        this.senha = dto.getSenha();
-        this.setRole(dto.getRole());
     }
 
     public void setRole(String role) {

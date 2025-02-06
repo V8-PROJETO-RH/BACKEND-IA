@@ -3,6 +3,7 @@ package tech.v8.crudbackendmvp.service.usuario;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.v8.crudbackendmvp.exception.ResourceNotFoundException;
+import tech.v8.crudbackendmvp.exception.ValidacaoIdiomaException;
 import tech.v8.crudbackendmvp.model.dto.usuario.candidato.idiomas.IdiomaFrontCriacao;
 import tech.v8.crudbackendmvp.model.dto.usuario.candidato.idiomas.IdiomaFrontResposta;
 import tech.v8.crudbackendmvp.model.dto.usuario.candidato.idiomas.IdiomaMapper;
@@ -10,7 +11,9 @@ import tech.v8.crudbackendmvp.model.usuario.Candidato;
 import tech.v8.crudbackendmvp.model.usuario.DetalhesIdiomas;
 import tech.v8.crudbackendmvp.repository.usuario.DetalhesIdiomasRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -33,8 +36,11 @@ public class IdiomaService {
     public IdiomaFrontResposta create(Long idCandidato, IdiomaFrontCriacao idioma) {
         Candidato candidatoEncontrado = candidatoService.getCandidatoReferenceById(idCandidato);
         DetalhesIdiomas idiomaNovo = IdiomaMapper.toIdioma(idioma, candidatoEncontrado);
-        DetalhesIdiomas idiomaSalvo = idiomaRepository.save(idiomaNovo);
 
+        validarIdioma(candidatoEncontrado, idiomaNovo);
+
+
+        DetalhesIdiomas idiomaSalvo = idiomaRepository.save(idiomaNovo);
         candidatoEncontrado.getDetalhesIdiomas().add(idiomaSalvo);
 
         return IdiomaMapper.toDTO(idiomaSalvo);
@@ -56,6 +62,20 @@ public class IdiomaService {
 
         candidatoEncontrado.getDetalhesIdiomas().remove(idiomaEncontrado);
         idiomaRepository.delete(idiomaEncontrado);
+    }
+
+    private void validarIdioma(Candidato candidato, DetalhesIdiomas idioma) {
+
+        Map<String, String> fieldErrors = new HashMap<>();
+
+        candidato.getDetalhesIdiomas().stream()
+                .filter(idiomaCandidato -> idiomaCandidato.getNome().equalsIgnoreCase(idioma.getNome()))
+                .findFirst()
+                .ifPresent(idiomaCandidato -> {
+                    fieldErrors.put("nome", "Idioma já cadastrado para este candidato");
+                    throw new ValidacaoIdiomaException("Erro na validação do idioma", fieldErrors);
+                });
+
     }
 
 }

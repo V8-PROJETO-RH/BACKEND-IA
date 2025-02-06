@@ -1,6 +1,7 @@
 package tech.v8.crudbackendmvp.model.dto.vaga;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -19,6 +20,7 @@ public class VagaFrontCriacao {
     private String tipo; // Campo adicionado
 
     @NotBlank(message = "O regime de contratação deve ser informado.")
+    @JsonProperty("regime_contratacao")
     private String regimeContratacao;
 
     @NotBlank(message = "A descrição da vaga é obrigatória.")
@@ -42,6 +44,7 @@ public class VagaFrontCriacao {
 
     @Positive(message = "A faixa salarial deve ser maior que zero.")
     @NotNull(message = "A faixa salarial é obrigatória.")
+    @JsonProperty("faixa_salarial")
     private BigDecimal faixaSalarial;
 
     @NotNull(message = "O status da vaga deve ser informado.")

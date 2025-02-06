@@ -114,8 +114,6 @@ public class VagaService {
             vagaAntiga.setResponsavel(funcionario);
         }
 
-        vagaAntiga.setProvas(dto.getProvas());
-
         vagaAntiga.setNome(dto.getNome());
         vagaAntiga.setTipo(dto.getTipo());
         vagaAntiga.setLocalidade(dto.getLocalidade());

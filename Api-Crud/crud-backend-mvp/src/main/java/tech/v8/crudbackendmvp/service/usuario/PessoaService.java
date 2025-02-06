@@ -17,9 +17,10 @@ public class PessoaService {
     private final PessoaRepository pessoaRepository;
 
     @Transactional
-    public Pessoa create(PessoaFrontCriacao dto) {
+    public Pessoa create(PessoaFrontCriacao dto, String role) {
 
         Pessoa novaPessoa = toPessoa(dto);
+        novaPessoa.setRole(role);
 
         return pessoaRepository.save(novaPessoa);
     }

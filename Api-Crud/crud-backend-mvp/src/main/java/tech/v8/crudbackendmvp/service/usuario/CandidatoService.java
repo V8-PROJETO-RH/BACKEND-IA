@@ -11,6 +11,7 @@ import tech.v8.crudbackendmvp.exception.ResourceNotFoundException;
 import tech.v8.crudbackendmvp.model.dto.usuario.candidato.*;
 import tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaFrontResposta;
 import tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaMapper;
+import tech.v8.crudbackendmvp.model.enums.Role;
 import tech.v8.crudbackendmvp.model.usuario.Candidato;
 import tech.v8.crudbackendmvp.model.usuario.Pessoa;
 import tech.v8.crudbackendmvp.repository.usuario.CandidatoRepository;
@@ -45,7 +46,7 @@ public class CandidatoService {
 
         validateDto(dto);
 
-        Pessoa novaPessoa = pessoaService.create(dto);
+        Pessoa novaPessoa = pessoaService.create(dto, Role.COMUM.name());
 
         Candidato novoCandidato = toCandidato(dto, novaPessoa);
 

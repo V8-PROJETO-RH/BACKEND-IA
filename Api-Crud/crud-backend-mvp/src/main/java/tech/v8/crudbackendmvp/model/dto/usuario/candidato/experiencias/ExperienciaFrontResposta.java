@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoFrontResumo;
 import tech.v8.crudbackendmvp.model.usuario.DetalhesExperiencias;
 
 import java.time.LocalDate;
@@ -14,7 +13,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ExperienciaFrontResposta {
     private Long id;
-    private CandidatoFrontResumo candidato;
     private String titulo;
     private String empresa;
     private String descricao;
@@ -30,7 +28,6 @@ public class ExperienciaFrontResposta {
 
     public ExperienciaFrontResposta(DetalhesExperiencias experiencia) {
         this.id = experiencia.getId();
-        this.candidato = new CandidatoFrontResumo(experiencia.getCandidato());
 
         this.titulo = experiencia.getTitulo();
         this.empresa = experiencia.getEmpresa();

@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.v8.crudbackendmvp.exception.ResourceNotFoundException;
+import tech.v8.crudbackendmvp.model.enums.Role;
 import tech.v8.crudbackendmvp.model.usuario.Funcionario;
 import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontCriacao;
 import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontEdicao;
@@ -32,7 +33,7 @@ public class FuncionarioService {
 
     @Transactional
     public FuncionarioFrontResposta create(FuncionarioFrontCriacao dto) {
-        Pessoa novaPessoa = pessoaService.create(dto);
+        Pessoa novaPessoa = pessoaService.create(dto, Role.RH.name());
 
         Funcionario novoFuncionario = toFuncionario(dto, novaPessoa);
 

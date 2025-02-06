@@ -1,5 +1,6 @@
 package tech.v8.crudbackendmvp.exception;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -116,7 +117,7 @@ public class GlobalExceptionHandler {
         Map<String, String> fieldErrors = new HashMap<>();
 
         // Caso seja erro relacionado ao formato de data (ex.: "28-13-2023")
-        if (cause instanceof DateTimeParseException) {
+        if (cause instanceof DateTimeParseException || (cause instanceof InvalidFormatException && ex.getMessage().contains("LocalDate"))) {
             fieldErrors.put("data_nascimento", "Formato inválido. Use o formato dd/MM/yyyy. Exemplo: 28/11/2004.");
             ErrorResponse response = new ErrorResponse(
                     HttpStatus.BAD_REQUEST,
@@ -132,7 +133,7 @@ public class GlobalExceptionHandler {
         } else if (ex.getMessage().contains("BigDecimal")) {
             fieldErrors.put("faixaSalarial", "Valor inválido. Certifique-se de inserir um valor numérico.");
         } else {
-            fieldErrors.put("cause", "Erro desconhecido na desserialização. Verifique os valores fornecidos." + ex.getMessage());
+            fieldErrors.put("cause", "Erro desconhecido na desserialização. Verifique os valores fornecidos." + ex.getCause());
         }
 
         ErrorResponse response = new ErrorResponse(
@@ -142,6 +143,18 @@ public class GlobalExceptionHandler {
         );
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+
+    // Trata os erros do idioma do usuario
+    @ExceptionHandler(ValidacaoIdiomaException.class)
+    public ResponseEntity<ErrorResponse> handleValidacaoIdiomaException(ValidacaoIdiomaException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.BAD_REQUEST,
+                ex.getMessage(),
+                ex.getFieldErrors()
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
 
