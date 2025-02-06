@@ -13,10 +13,10 @@ import java.util.Optional;
 @Repository
 public interface CandidatoRepository extends JpaRepository<Candidato, Long> {
 
-    @Query("SELECT c FROM Candidato c WHERE c.estadoLogico = true")
+    @Query("SELECT c FROM Candidato c WHERE c.pessoa.estadoLogico = true")
     List<Candidato> findAllAtivos();
 
-    @Query("SELECT c FROM Candidato c WHERE c.estadoLogico = true AND c.id = :id")
+    @Query("SELECT c FROM Candidato c WHERE c.pessoa.estadoLogico = true AND c.id = :id")
     Optional<Candidato> findAtivoById(@Param("id") long id);
 
     @Query("SELECT va FROM VagaAplicada va WHERE va.candidato.id = :id")

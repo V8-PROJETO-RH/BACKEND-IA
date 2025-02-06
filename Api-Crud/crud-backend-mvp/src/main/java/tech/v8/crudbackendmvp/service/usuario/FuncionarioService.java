@@ -58,14 +58,6 @@ public class FuncionarioService {
                 .orElseThrow(() -> new ResourceNotFoundException("Funcionário de id " + id + " não encontrado."));
     }
 
-    public Funcionario getFuncionarioReferenceById(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("ID do funcionário não pode ser nulo");
-        }
-        return funcionarioRepository.getReferenceById(id);
-
-    }
-
     @Transactional
     public FuncionarioFrontResposta update(Long id, FuncionarioFrontEdicao dto) {
         Funcionario funcionarioAntigo = findById(id);
@@ -89,7 +81,9 @@ public class FuncionarioService {
     }
 
     public void delete(Long id){
-        funcionarioRepository.delete(findById(id));
+        Funcionario funcionarioEcontrado = findById(id);
+        funcionarioEcontrado.getPessoa().setEstadoLogico(false);
+        funcionarioRepository.save(funcionarioEcontrado);
     }
 
 }

@@ -2,6 +2,7 @@ package tech.v8.crudbackendmvp.service.usuario;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tech.v8.crudbackendmvp.exception.DataInvalidaException;
 import tech.v8.crudbackendmvp.exception.ResourceNotFoundException;
 import tech.v8.crudbackendmvp.model.dto.usuario.candidato.formacoes.FormacaoFrontCriacao;
 import tech.v8.crudbackendmvp.model.dto.usuario.candidato.formacoes.FormacaoFrontResposta;
@@ -24,13 +25,17 @@ public class FormacaoService {
                 .toList();
     }
 
-    public DetalhesFormacao getFormacaoReferenceById(Long id) {
+    public DetalhesFormacao findById(Long id) {
         return formacaoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Formação de id " + id + " não encontrada."));
     }
 
     public FormacaoFrontResposta create(Long idCandidato, FormacaoFrontCriacao formacao) {
-        Candidato candidatoEncontrado = candidatoService.getCandidatoReferenceById(idCandidato);
+        if(formacao.getDtInicio().isAfter(formacao.getDtFinal())){
+            throw new DataInvalidaException("Data Final é anterior a Data Inicial.");
+        }
+
+        Candidato candidatoEncontrado = candidatoService.findById(idCandidato);
         DetalhesFormacao formacaoNova = FormacaoMapper.toFormacao(formacao, candidatoEncontrado);
         DetalhesFormacao formacaoSalva = formacaoRepository.save(formacaoNova);
 
@@ -41,7 +46,7 @@ public class FormacaoService {
     }
 
     public FormacaoFrontResposta update(Long idFormacao, FormacaoFrontCriacao formacao) {
-        DetalhesFormacao formacaoEncontrada = getFormacaoReferenceById(idFormacao);
+        DetalhesFormacao formacaoEncontrada = findById(idFormacao);
 
         formacaoEncontrada.setNomeInstituicao(formacao.getNomeInstituicao());
         formacaoEncontrada.setEscolaridade(formacao.getEscolaridade());
@@ -54,8 +59,8 @@ public class FormacaoService {
     }
 
     public void delete(Long idCandidato, Long idFormacao) {
-        Candidato candidatoEncontrado = candidatoService.getCandidatoReferenceById(idCandidato);
-        DetalhesFormacao formacaoEncontrada = getFormacaoReferenceById(idFormacao);
+        Candidato candidatoEncontrado = candidatoService.findById(idCandidato);
+        DetalhesFormacao formacaoEncontrada = findById(idFormacao);
 
         candidatoEncontrado.getDetalhesFormacao().remove(formacaoEncontrada);
         formacaoRepository.delete(formacaoEncontrada);

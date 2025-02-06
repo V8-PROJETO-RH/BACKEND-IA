@@ -44,7 +44,7 @@ public class VagaService {
     @Transactional
     public VagaFrontResposta create(VagaFrontCriacao dto) {
         try {
-            Funcionario funcionarioEncontrado = funcionarioService.getFuncionarioReferenceById(dto.getResponsavel_id());
+            Funcionario funcionarioEncontrado = funcionarioService.findById(dto.getResponsavel_id());
 
             Vaga novaVaga = toVaga(dto);
             novaVaga.setResponsavel(funcionarioEncontrado);
@@ -110,7 +110,7 @@ public class VagaService {
     private Vaga atualizarAtributos(Vaga vagaAntiga, VagaFrontEdicao dto) {
 
         if (dto.getResponsavel_id() != null){
-            Funcionario funcionario = funcionarioService.getFuncionarioReferenceById(dto.getResponsavel_id());
+            Funcionario funcionario = funcionarioService.findById(dto.getResponsavel_id());
             vagaAntiga.setResponsavel(funcionario);
         }
 
@@ -135,8 +135,11 @@ public class VagaService {
     }
 
 
+    @Transactional
     public void delete(Long id) {
-        vagaRepository.delete(vagaRepository.findAtivoById(id).orElseThrow(() -> new ResourceNotFoundException("Erro ao deletar a vaga de id  " + id + ".")));
+        Vaga vagaEncontrada = findById(id);
+        vagaEncontrada.setEstadoLogico(false);
+        vagaRepository.save(vagaEncontrada);
     }
 }
 

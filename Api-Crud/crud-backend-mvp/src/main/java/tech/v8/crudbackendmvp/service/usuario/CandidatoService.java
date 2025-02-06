@@ -59,7 +59,7 @@ public class CandidatoService {
 
     public CandidatoFrontResposta findDTOById(Long id) {
         return candidatoRepository.findAtivoById(id).map(CandidatoMapper::toDTO)
-                .orElseThrow(() -> new ResourceNotFoundException("Candidado de id " + id + "não encontrado."));
+                .orElseThrow(() -> new ResourceNotFoundException("Candidado de id " + id + " não encontrado."));
     }
 
     public List<VagaAplicadaFrontResposta> findVagasAplicadasDTOById(Long id) {
@@ -69,16 +69,9 @@ public class CandidatoService {
 
     public Candidato findById(Long id) {
         return candidatoRepository.findAtivoById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Candidado de id " + id + "não encontrado."));
+                .orElseThrow(() -> new ResourceNotFoundException("Candidado de id " + id + " não encontrado."));
     }
 
-    public Candidato getCandidatoReferenceById(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("ID do candidato não pode ser nulo");
-        }
-        return candidatoRepository.getReferenceById(id);
-
-    }
 
     @Transactional
     public CandidatoFrontResposta update(Long id, CandidatoFrontEdicao dto) {
@@ -113,8 +106,11 @@ public class CandidatoService {
 
     }
 
+    @Transactional
     public void delete(Long id) {
-        candidatoRepository.delete(findById(id));
+        Candidato candidatoEncontrado = findById(id);
+        candidatoEncontrado.getPessoa().setEstadoLogico(false);
+        candidatoRepository.save(candidatoEncontrado);
     }
 
     private void validateDto(CandidatoFrontCriacao dto) {

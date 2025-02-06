@@ -21,7 +21,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "candidatos")
-@SQLDelete(sql = "UPDATE candidatos SET estado_logico = false WHERE id = ?")
 public class Candidato {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "candidato_seq")
@@ -101,10 +100,6 @@ public class Candidato {
     @Column(name = "estado", nullable = false)
     private String estado;
 
-    @NotNull
-    @Column(name = "estado_logico", nullable = false)
-    private Boolean estadoLogico = true;
-
     public Candidato(CandidatoFrontCriacao dto, Pessoa pessoa) {
         this.vagasAplicadas = new ArrayList<>();
         this.resultadoProvas = new ArrayList<>();
@@ -125,7 +120,6 @@ public class Candidato {
         this.bairro = dto.getBairro();
         this.cidade = dto.getCidade();
         this.estado = dto.getEstado();
-        this.estadoLogico = true;
     }
 
     public void setGenero(String genero) {

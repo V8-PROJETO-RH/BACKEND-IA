@@ -77,6 +77,7 @@ public class DetalhesExperiencias {
         this.localidade = dto.getLocalidade();
         this.setModelo(dto.getModelo());
         this.competencias = dto.getCompetencias();
+
         this.dataInicio = dto.getDtInicio();
         this.dataFinal = dto.getDtFinal();
     }

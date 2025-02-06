@@ -39,12 +39,13 @@ public class Prova {
 
     @NotNull
     @Column(name = "estado_logico", nullable = false)
-    private Boolean estadoLogico = true;
+    private Boolean estadoLogico;
 
     public Prova(ProvaFrontCriacao prova, Vaga vaga) {
         this.resultados = new ArrayList<>();
 
         this.descricao = prova.getDescricao();
         this.vaga = vaga;
+        this.estadoLogico = true;
     }
 }

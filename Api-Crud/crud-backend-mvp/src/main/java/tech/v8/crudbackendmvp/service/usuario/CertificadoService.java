@@ -25,13 +25,13 @@ public class CertificadoService {
                 .toList();
     }
 
-    public Certificado getCertificadoReferenceById(Long id) {
+    public Certificado findById(Long id) {
         return certificadoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Certificado de id " + id + " não encontrado."));
     }
 
     public CertificadoFrontResposta create(Long idCandidato, CertificadoFrontCriacao certificado) {
-        Candidato candidatoEncontrado = candidatoService.getCandidatoReferenceById(idCandidato);
+        Candidato candidatoEncontrado = candidatoService.findById(idCandidato);
         Certificado certificadoNovo = CertificadoMapper.toCertificado(certificado, candidatoEncontrado);
         Certificado certificadoSalvo = certificadoRepository.save(certificadoNovo);
 
@@ -42,7 +42,7 @@ public class CertificadoService {
     }
 
     public CertificadoFrontResposta update(Long idCertificado, CertificadoFrontCriacao certificado) {
-        Certificado certificadoEncontrado = getCertificadoReferenceById(idCertificado);
+        Certificado certificadoEncontrado = findById(idCertificado);
 
         certificadoEncontrado.setNome(certificado.getNome());
         certificadoEncontrado.setDataEmissao(certificado.getDtEmissao());
@@ -53,8 +53,8 @@ public class CertificadoService {
     }
 
     public void delete(Long idCandidato, Long idCertificado) {
-        Candidato candidatoEncontrado = candidatoService.getCandidatoReferenceById(idCandidato);
-        Certificado certificadoEncontrado = getCertificadoReferenceById(idCertificado);
+        Candidato candidatoEncontrado = candidatoService.findById(idCandidato);
+        Certificado certificadoEncontrado = findById(idCertificado);
 
         candidatoEncontrado.getCertificados().remove(certificadoEncontrado);
         certificadoRepository.delete(certificadoEncontrado);

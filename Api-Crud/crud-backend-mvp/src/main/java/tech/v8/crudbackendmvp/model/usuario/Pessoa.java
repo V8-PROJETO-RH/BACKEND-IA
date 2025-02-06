@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLDelete;
 import tech.v8.crudbackendmvp.infra.validation.Email;
 import tech.v8.crudbackendmvp.model.dto.usuario.pessoa.PessoaFrontCriacao;
@@ -60,6 +61,11 @@ public class Pessoa {
     @Column(name = "role", length = 45)
     private Role role;
 
+    @NotNull
+    @Column(name = "estado_logico", nullable = false)
+    @ColumnDefault("true")
+    private Boolean estadoLogico;
+
     public Pessoa(PessoaFrontCriacao dto) {
         this.funcionario = null;
         this.candidato = null;
@@ -68,6 +74,7 @@ public class Pessoa {
         this.email = dto.getEmail();
         this.cpf = dto.getCpf();
         this.dataNascimento = dto.getDataNascimento();
+        this.estadoLogico = true;
     }
 
     public void setRole(String role) {

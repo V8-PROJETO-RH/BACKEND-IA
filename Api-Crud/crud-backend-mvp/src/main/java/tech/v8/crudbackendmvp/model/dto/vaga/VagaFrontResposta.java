@@ -58,7 +58,7 @@ public class VagaFrontResposta {
         this.responsabilidade = vaga.getResponsabilidade();
         this.requisitos = vaga.getRequisitos();
         this.faixaSalarial = vaga.getFaixaSalarial();
-        this.regimeContratacao = vaga.getRegimeContratacao();
+        this.regimeContratacao = vaga.getRegimeContratacao().name();
         this.beneficios = vaga.getBeneficios();
         this.status = vaga.getStatus().name();
         this.quantidadeVagas = vaga.getQtdVagas();

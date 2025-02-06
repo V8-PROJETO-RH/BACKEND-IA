@@ -25,13 +25,13 @@ public class HabilidadeService {
                 .toList();
     }
 
-    public DetalhesHabilidades getHabilidadeReferenceById(Long id) {
+    public DetalhesHabilidades findById(Long id) {
         return habilidadesRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Habilidade de id " + id + " não encontrada."));
     }
 
     public HabilidadeFrontResposta create(Long idCandidato, HabilidadeFrontCriacao habilidade) {
-        Candidato candidatoEncontrado = candidatoService.getCandidatoReferenceById(idCandidato);
+        Candidato candidatoEncontrado = candidatoService.findById(idCandidato);
         DetalhesHabilidades habilidadeNova = HabilidadeMapper.toHabilidade(habilidade, candidatoEncontrado);
         DetalhesHabilidades habilidadeSalva = habilidadesRepository.save(habilidadeNova);
 
@@ -42,7 +42,7 @@ public class HabilidadeService {
     }
 
     public HabilidadeFrontResposta update(Long idHabilidade, HabilidadeFrontCriacao habilidade) {
-        DetalhesHabilidades habilidadeEncontrada = getHabilidadeReferenceById(idHabilidade);
+        DetalhesHabilidades habilidadeEncontrada = findById(idHabilidade);
 
         habilidadeEncontrada.setHabilidade(habilidade.getHabilidade());
         DetalhesHabilidades habilidadeSalva = habilidadesRepository.save(habilidadeEncontrada);
@@ -50,8 +50,8 @@ public class HabilidadeService {
     }
 
     public void delete(Long idCandidato, Long idHabilidade) {
-        Candidato candidatoEncontrado = candidatoService.getCandidatoReferenceById(idCandidato);
-        DetalhesHabilidades habilidadeEncontrada = getHabilidadeReferenceById(idHabilidade);
+        Candidato candidatoEncontrado = candidatoService.findById(idCandidato);
+        DetalhesHabilidades habilidadeEncontrada = findById(idHabilidade);
 
         candidatoEncontrado.getDetalhesHabilidades().remove(habilidadeEncontrada);
         habilidadesRepository.delete(habilidadeEncontrada);

@@ -2,6 +2,7 @@ package tech.v8.crudbackendmvp.service.usuario;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tech.v8.crudbackendmvp.exception.DataInvalidaException;
 import tech.v8.crudbackendmvp.exception.ResourceNotFoundException;
 import tech.v8.crudbackendmvp.model.dto.usuario.candidato.experiencias.ExperienciaFrontCriacao;
 import tech.v8.crudbackendmvp.model.dto.usuario.candidato.experiencias.ExperienciaFrontResposta;
@@ -25,13 +26,17 @@ public class ExperienciaService {
                 .toList();
     }
 
-    public DetalhesExperiencias getExperienciaReferenceById(Long id) {
+    public DetalhesExperiencias findById(Long id) {
         return experienciasRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Experiência de id " + id + " não encontrada."));
     }
 
     public ExperienciaFrontResposta create(Long idCandidato, ExperienciaFrontCriacao experiencia) {
-        Candidato candidatoEncontrado = candidatoService.getCandidatoReferenceById(idCandidato);
+        if(experiencia.getDtInicio().isAfter(experiencia.getDtFinal())){
+            throw new DataInvalidaException("Data Final é anterior a Data Inicial.");
+        }
+
+        Candidato candidatoEncontrado = candidatoService.findById(idCandidato);
         DetalhesExperiencias experienciaNova = ExperienciaMapper.toExperiencia(experiencia, candidatoEncontrado);
         DetalhesExperiencias experienciaSalva = experienciasRepository.save(experienciaNova);
 
@@ -42,7 +47,7 @@ public class ExperienciaService {
     }
 
     public ExperienciaFrontResposta update(Long idExperiencia, ExperienciaFrontCriacao experiencia) {
-        DetalhesExperiencias experienciaEncontrada = getExperienciaReferenceById(idExperiencia);
+        DetalhesExperiencias experienciaEncontrada = findById(idExperiencia);
 
         experienciaEncontrada.setTitulo(experiencia.getTitulo());
         experienciaEncontrada.setEmpresa(experiencia.getEmpresa());
@@ -58,8 +63,8 @@ public class ExperienciaService {
     }
 
     public void delete(Long idCandidato, Long idExperiencia) {
-        Candidato candidatoEncontrado = candidatoService.getCandidatoReferenceById(idCandidato);
-        DetalhesExperiencias experienciaEncontrada = getExperienciaReferenceById(idExperiencia);
+        Candidato candidatoEncontrado = candidatoService.findById(idCandidato);
+        DetalhesExperiencias experienciaEncontrada = findById(idExperiencia);
 
         candidatoEncontrado.getDetalhesExperiencia().remove(experienciaEncontrada);
         experienciasRepository.delete(experienciaEncontrada);

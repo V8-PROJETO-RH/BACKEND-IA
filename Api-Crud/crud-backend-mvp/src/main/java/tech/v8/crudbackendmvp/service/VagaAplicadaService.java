@@ -44,7 +44,7 @@ public class VagaAplicadaService {
     @Transactional
     public VagaAplicadaFrontResposta create(VagaAplicadaFrontCriacao dto) {
         try {
-            Candidato candidatoEncontrado = candidatoService.getCandidatoReferenceById(dto.getCandidatoId());
+            Candidato candidatoEncontrado = candidatoService.findById(dto.getCandidatoId());
             Vaga vagaEncontrada = vagaService.getVagaReferenceById(dto.getVagaId());
 
             VagaAplicada novaVagaAplicada = toVagaAplicada(dto, candidatoEncontrado, vagaEncontrada);
@@ -90,7 +90,7 @@ public class VagaAplicadaService {
     private VagaAplicada atualizarAtributos(VagaAplicada vagaAplicadaAntiga, VagaAplicadaFrontEdicao dto) {
 
         if (!dto.getCandidatoId().equals(vagaAplicadaAntiga.getCandidato().getId())) {
-            Candidato candidatoEncontrado = candidatoService.getCandidatoReferenceById(dto.getCandidatoId());
+            Candidato candidatoEncontrado = candidatoService.findById(dto.getCandidatoId());
             vagaAplicadaAntiga.setCandidato(candidatoEncontrado);
 
         }

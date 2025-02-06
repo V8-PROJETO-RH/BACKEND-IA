@@ -118,7 +118,7 @@ public class GlobalExceptionHandler {
 
         // Caso seja erro relacionado ao formato de data (ex.: "28-13-2023")
         if (cause instanceof DateTimeParseException || (cause instanceof InvalidFormatException && ex.getMessage().contains("LocalDate"))) {
-            fieldErrors.put("data_nascimento", "Formato inválido. Use o formato dd/MM/yyyy. Exemplo: 28/11/2004.");
+            fieldErrors.put("data", "Formato inválido. Use o formato dd/MM/yyyy. Exemplo: 28/11/2004.");
             ErrorResponse response = new ErrorResponse(
                     HttpStatus.BAD_REQUEST,
                     "Erro de desserialização: um campo contém dados inválidos.",
@@ -158,6 +158,25 @@ public class GlobalExceptionHandler {
     }
 
 
+    @ExceptionHandler(EmailRepetidoException.class)
+    public ResponseEntity<ErrorResponse> handleEmailRepetidoException(EmailRepetidoException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.BAD_REQUEST,
+                ex.getMessage(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DataInvalidaException.class)
+    public ResponseEntity<ErrorResponse> handleDataInvalidaException(DataInvalidaException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.BAD_REQUEST,
+                ex.getMessage(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 
 
 }

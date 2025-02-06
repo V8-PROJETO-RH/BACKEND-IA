@@ -16,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "funcionario")
-@SQLDelete(sql = "UPDATE funcionarios SET estado_logico = false WHERE id = ?")
 public class Funcionario {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario_seq")
@@ -41,11 +40,6 @@ public class Funcionario {
     private String funcao;
 
 
-    @NotNull
-    @Column(name = "estado_logico", nullable = false)
-    private Boolean estadoLogico = true;
-
-
     public Funcionario(FuncionarioFrontCriacao dto, Pessoa pessoa) {
 
         this.pessoa = pessoa;
@@ -54,6 +48,5 @@ public class Funcionario {
         this.departamento = dto.getDepartamento();
         this.funcao = dto.getFuncao();
 
-        this.estadoLogico = true;
     }
 }

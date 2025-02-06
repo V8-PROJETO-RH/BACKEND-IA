@@ -28,13 +28,13 @@ public class IdiomaService {
                 .toList();
     }
 
-    public DetalhesIdiomas getReferenceById(Long id) {
+    public DetalhesIdiomas findById(Long id) {
         return idiomaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Idioma de id " + id + " não encontrado."));
     }
 
     public IdiomaFrontResposta create(Long idCandidato, IdiomaFrontCriacao idioma) {
-        Candidato candidatoEncontrado = candidatoService.getCandidatoReferenceById(idCandidato);
+        Candidato candidatoEncontrado = candidatoService.findById(idCandidato);
         DetalhesIdiomas idiomaNovo = IdiomaMapper.toIdioma(idioma, candidatoEncontrado);
 
         validarIdioma(candidatoEncontrado, idiomaNovo);
@@ -48,7 +48,7 @@ public class IdiomaService {
     }
 
     public IdiomaFrontResposta update(Long idIdioma, IdiomaFrontCriacao idioma) {
-        DetalhesIdiomas idiomaEncontrado = getReferenceById(idIdioma);
+        DetalhesIdiomas idiomaEncontrado = findById(idIdioma);
 
         idiomaEncontrado.setNome(idioma.getNome());
         idiomaEncontrado.setProficiencia(idioma.getProficiencia());
@@ -57,8 +57,8 @@ public class IdiomaService {
     }
 
     public void delete(Long idCandidato, Long idIdioma) {
-        Candidato candidatoEncontrado = candidatoService.getCandidatoReferenceById(idCandidato);
-        DetalhesIdiomas idiomaEncontrado = getReferenceById(idIdioma);
+        Candidato candidatoEncontrado = candidatoService.findById(idCandidato);
+        DetalhesIdiomas idiomaEncontrado = findById(idIdioma);
 
         candidatoEncontrado.getDetalhesIdiomas().remove(idiomaEncontrado);
         idiomaRepository.delete(idiomaEncontrado);
