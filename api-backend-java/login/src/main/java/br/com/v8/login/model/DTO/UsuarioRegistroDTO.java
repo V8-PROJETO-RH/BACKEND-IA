@@ -29,7 +29,7 @@ public class UsuarioRegistroDTO {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @NotNull
-    private Date dataNasc;
+    private String dataNasc;
 
     @NotBlank
     private String cpf;

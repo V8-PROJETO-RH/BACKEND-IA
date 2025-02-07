@@ -30,12 +30,9 @@ public class CadastroController {
 
     @PostMapping("/cadastro")
     public ResponseEntity<String> registrarUsuario(@Validated @RequestBody UsuarioRegistroDTO usuarioDTO){
-        try {
-            usuarioService.registro(usuarioDTO);
-            return new ResponseEntity<>("Usuário registrado com sucesso", HttpStatus.CREATED);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+        Usuario usuario = usuarioService.registro(usuarioDTO);
+            return new ResponseEntity<>("Usuário registrado com sucesso!",
+                   HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
