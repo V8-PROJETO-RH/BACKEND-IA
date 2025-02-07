@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.SQLDelete;
 import tech.v8.crudbackendmvp.model.vaga.Vaga;
 import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontCriacao;
 

@@ -118,7 +118,7 @@ public class VagaService {
         vagaAntiga.setTipo(dto.getTipo());
         vagaAntiga.setLocalidade(dto.getLocalidade());
         vagaAntiga.setDescricao(dto.getDescricao());
-        vagaAntiga.setResponsabilidade(dto.getResponsabilidade());
+        vagaAntiga.setResponsabilidades(dto.getResponsabilidades());
         vagaAntiga.setRequisitos(dto.getRequisitos());
         vagaAntiga.setFaixaSalarial(dto.getFaixaSalarial());
         vagaAntiga.setRegimeContratacao(dto.getRegimeContratacao());

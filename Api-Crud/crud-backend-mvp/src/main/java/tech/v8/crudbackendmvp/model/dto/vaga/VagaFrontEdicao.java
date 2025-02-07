@@ -1,10 +1,12 @@
 package tech.v8.crudbackendmvp.model.dto.vaga;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class VagaFrontEdicao {
@@ -23,11 +25,13 @@ public class VagaFrontEdicao {
     @NotBlank(message = "A descrição da vaga é obrigatória.")
     private String descricao;
 
-    @NotBlank(message = "A responsabilidade da vaga deve ser informada.")
-    private String responsabilidade;
+    @NotEmpty(message = "A responsabilidade da vaga deve ser informada.")
+    private List<String> responsabilidades;
 
-    @NotBlank(message = "Os requisitos são obrigatórios.")
-    private String requisitos;
+
+    @NotEmpty(message = "Os requisitos são obrigatórios.")
+    private List<String> requisitos;
+
 
     @NotNull(message = "O salário é obrigatório.")
     private BigDecimal faixaSalarial;
@@ -35,8 +39,8 @@ public class VagaFrontEdicao {
     @NotBlank(message = "O regime de contratação deve ser informado.")
     private String regimeContratacao;
 
-    @NotBlank(message = "Os benefícios da vaga devem ser informados.")
-    private String beneficios;
+    @NotEmpty(message = "Os benefícios da vaga devem ser informados.")
+    private List<String> beneficios;
 
     @NotBlank(message = "O modelo da vaga deve ser informado.")
     private String modelo;

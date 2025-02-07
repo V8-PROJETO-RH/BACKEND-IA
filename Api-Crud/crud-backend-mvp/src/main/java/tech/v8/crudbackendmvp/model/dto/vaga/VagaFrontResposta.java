@@ -28,13 +28,15 @@ public class VagaFrontResposta {
     private String localidade;
     private String modelo;
     private String descricao;
-    private String responsabilidade;
-    private String requisitos;
+
+    private List<String> responsabilidades;
+    private List<String> requisitos;
+    private List<String> beneficios;
+
     @JsonProperty("faixa_salarial")
     private BigDecimal faixaSalarial;
     @JsonProperty("regime_contratacao")
     private String regimeContratacao;
-    private String beneficios;
     private String status;
     @JsonProperty("quantidade_vagas")
     private Integer quantidadeVagas;
@@ -55,7 +57,7 @@ public class VagaFrontResposta {
         this.localidade = vaga.getLocalidade();
         this.modelo = vaga.getModelo().name();
         this.descricao = vaga.getDescricao();
-        this.responsabilidade = vaga.getResponsabilidade();
+        this.responsabilidades = vaga.getResponsabilidades();
         this.requisitos = vaga.getRequisitos();
         this.faixaSalarial = vaga.getFaixaSalarial();
         this.regimeContratacao = vaga.getRegimeContratacao().name();

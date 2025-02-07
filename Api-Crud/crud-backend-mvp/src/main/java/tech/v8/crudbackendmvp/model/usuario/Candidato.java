@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.SQLDelete;
 import tech.v8.crudbackendmvp.infra.validation.Telefone;
 import tech.v8.crudbackendmvp.model.vaga.ResultadoFinal;
 import tech.v8.crudbackendmvp.model.vaga.VagaAplicada;

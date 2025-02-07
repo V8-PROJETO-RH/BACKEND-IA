@@ -70,12 +70,18 @@ public class Vaga {
 
 
     @NotNull
+    @ElementCollection
+    @CollectionTable(name = "vaga_responsabilidades",
+            joinColumns = @JoinColumn(name = "vaga_id"))
     @Column(name = "responsabilidade", nullable = false)
-    private String responsabilidade;
+    private List<String> responsabilidades;
 
     @NotNull
-    @Column(name = "requisitos", nullable = false)
-    private String requisitos;
+    @ElementCollection
+    @CollectionTable(name = "vaga_requisitos",
+    joinColumns = @JoinColumn(name = "vaga_id"))
+    @Column(name = "requisito", nullable = false)
+    private List<String> requisitos;
 
     @NotNull
     @Column(name = "faixa_salarial", nullable = false)
@@ -86,8 +92,11 @@ public class Vaga {
     private RegimeContratacao regimeContratacao;
 
     @NotNull
-    @Column(name = "beneficios", nullable = false)
-    private String beneficios;
+    @ElementCollection
+    @CollectionTable(name = "vaga_beneficios",
+    joinColumns = @JoinColumn(name = "vaga_id"))
+    @Column(name = "beneficio", nullable = false)
+    private List<String> beneficios;
 
     @Enumerated(EnumType.STRING) // Converter para String no banco
     @Column(name = "status", length = 45)
@@ -118,7 +127,7 @@ public class Vaga {
         this.tipo = dto.getTipo();
         this.localidade = dto.getLocalidade();
         this.descricao = dto.getDescricao();
-        this.responsabilidade = dto.getResponsabilidade();
+        this.responsabilidades = dto.getResponsabilidades();
         this.requisitos = dto.getRequisitos();
         this.faixaSalarial = dto.getFaixaSalarial();
         this.beneficios = dto.getBeneficios();

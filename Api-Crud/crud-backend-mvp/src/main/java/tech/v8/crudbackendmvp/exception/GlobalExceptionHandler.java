@@ -1,6 +1,7 @@
 package tech.v8.crudbackendmvp.exception;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -119,6 +120,23 @@ public class GlobalExceptionHandler {
         // Caso seja erro relacionado ao formato de data (ex.: "28-13-2023")
         if (cause instanceof DateTimeParseException || (cause instanceof InvalidFormatException && ex.getMessage().contains("LocalDate"))) {
             fieldErrors.put("data", "Formato inválido. Use o formato dd/MM/yyyy. Exemplo: 28/11/2004.");
+            ErrorResponse response = new ErrorResponse(
+                    HttpStatus.BAD_REQUEST,
+                    "Erro de desserialização: um campo contém dados inválidos.",
+                    fieldErrors
+            );
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        if (cause instanceof MismatchedInputException && ex.getMessage().contains("String-argument")) {
+            if (ex.getCause().toString().contains("requisitos")) {
+            fieldErrors.put("requisitos", "requisitos deve ser uma lista de strings. Exemplo: ['Experiência mínima de 5 anos com Python']");
+            }else if (ex.getCause().toString().contains("beneficios")) {
+                fieldErrors.put("beneficios", "beneficios deve ser uma lista de strings. Exemplo: ['Seguro de Vida']");
+            }else if (ex.getCause().toString().contains("responsabilidades")) {
+                fieldErrors.put("responsabilidades", "responsabilidades deve ser uma lista de strings. Exemplo: ['Automação de testes']");
+            }
+
             ErrorResponse response = new ErrorResponse(
                     HttpStatus.BAD_REQUEST,
                     "Erro de desserialização: um campo contém dados inválidos.",
