@@ -22,7 +22,6 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             String token = jwtUtil.generateToken(email);
 
             response.addHeader("Set-Cookie", "token=" + token + "; HttpOnly; Path=/");
-            response.sendRedirect("http://localhost:8081/index.html?token=" + token);
         }
     }
 }

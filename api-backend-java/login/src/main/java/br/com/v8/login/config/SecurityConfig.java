@@ -46,10 +46,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth -> oauth
-                        .loginPage("/redirect")
                         .successHandler(successHandler)
-                        .defaultSuccessUrl("/home", true)
-                        .failureUrl("/redirect?error=true")
                         .tokenEndpoint(token -> {
                             var defaultMapConverter = new DefaultMapOAuth2AccessTokenResponseConverter();
                             Converter<Map<String, Object>, OAuth2AccessTokenResponse> linkedinMapConverter = tokenResponse -> {
