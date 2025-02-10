@@ -1,8 +1,10 @@
 package tech.v8.crudbackendmvp.model.dto.vaga;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -33,10 +35,13 @@ public class VagaFrontEdicao {
     private List<String> requisitos;
 
 
-    @NotNull(message = "O salário é obrigatório.")
+    @Positive(message = "A faixa salarial deve ser maior que zero.")
+    @NotNull(message = "A faixa salarial é obrigatória.")
+    @JsonProperty("faixa_salarial")
     private BigDecimal faixaSalarial;
 
     @NotBlank(message = "O regime de contratação deve ser informado.")
+    @JsonProperty("regime_contratacao")
     private String regimeContratacao;
 
     @NotEmpty(message = "Os benefícios da vaga devem ser informados.")

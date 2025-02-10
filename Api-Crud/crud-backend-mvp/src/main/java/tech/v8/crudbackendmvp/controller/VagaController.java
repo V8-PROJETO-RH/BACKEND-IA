@@ -37,19 +37,17 @@ public class VagaController {
         return vagaService.list(page, size);
     }
 
-    @GetMapping("/search/nome")
-    public List<VagaFrontResposta> findByNome(@RequestParam(name = "nome_like") String nome) {
-        return vagaService.findByNome(nome);
-    }
+    @GetMapping("/search")
+    public VagaPage searchVagas(
+            @RequestParam(value = "nome_like", required = false) String nome,
+            @RequestParam(value = "modelo_like", required = false) String modelo,
+            @RequestParam(value = "local_like", required = false) String local,
 
-    @GetMapping("/search/modelo")
-    public List<VagaFrontResposta> findByModelo(@RequestParam(name = "modelo_like") String modelo) {
-        return vagaService.findByModelo(modelo);
-    }
+            @RequestParam(defaultValue = "0") @PositiveOrZero int page,
+            @RequestParam(defaultValue = "10") @Positive @Max(50) int size
 
-    @GetMapping("/search/local")
-    public List<VagaFrontResposta> findByLocal(@RequestParam(name = "local_like") String local) {
-        return vagaService.findByLocal(local);
+    ){
+        return vagaService.search(nome, modelo, local, page, size);
     }
 
     @PostMapping
@@ -57,6 +55,7 @@ public class VagaController {
     public VagaFrontResposta create(@RequestBody @Valid VagaFrontCriacao dto) {
         return vagaService.create(dto);
     }
+
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

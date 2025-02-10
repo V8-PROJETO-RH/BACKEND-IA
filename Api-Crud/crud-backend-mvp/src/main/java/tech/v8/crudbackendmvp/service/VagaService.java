@@ -31,14 +31,7 @@ public class VagaService {
 
     public VagaPage list(@PositiveOrZero int page, @Positive @Max(50) int size) {
         List<Vaga> vagasAtivas = vagaRepository.findAllAtivos();
-        List<VagaFrontResposta> vagas = vagasAtivas.stream()
-                .skip((long) page * size)
-                .limit(size)
-                .map(VagaMapper::toDTO)
-                .toList();
-        int totalElements = vagasAtivas.size();
-        int totalPages = (int) Math.ceil((double) totalElements / size);
-        return new VagaPage(vagas, totalPages, totalElements);
+        return VagaMapper.toPage(vagasAtivas, page, size);
     }
 
     @Transactional
@@ -75,26 +68,24 @@ public class VagaService {
                 .orElseThrow(() -> new ResourceNotFoundException("Vaga de id " + id + " não encontrada."));
     }
 
-    public List<VagaFrontResposta> findByNome(String nome) {
-        return vagaRepository.findAllAtivosByNome(nome).stream()
-                .map(VagaMapper::toDTO).toList();
-    }
+    public VagaPage search(String nome, String modelo, String local, @PositiveOrZero int page, @Positive @Max(50) int size){
 
-    public List<VagaFrontResposta> findByModelo(String modelo) {
-        return vagaRepository.findAllAtivosByModelo(modelo).stream()
-                .map(VagaMapper::toDTO).toList();
-    }
+        // Validação: deve ser informado pelo menos um parâmetro de filtro.
+        if ((nome == null || nome.isBlank()) &&
+                (modelo == null || modelo.isBlank()) &&
+                (local == null || local.isBlank())) {
+            throw new IllegalArgumentException("Ao menos um parâmetro de busca deve ser informado (nome, modelo ou local).");
+        }
 
-    public List<VagaFrontResposta> findByLocal(String local) {
-        return vagaRepository.findAllAtivosByLocal(local).stream()
-                .map(VagaMapper::toDTO).toList();
+        List<Vaga> vagas = vagaRepository.findAllAtivosByFilters(nome, modelo, local);
+        return VagaMapper.toPage(vagas, page, size);
     }
 
     public Vaga getVagaReferenceById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("ID da vaga não pode ser nulo");
         }
-        return vagaRepository.getReferenceById(id);
+        return findById(id);
 
     }
 
