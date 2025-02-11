@@ -5,9 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.SQLDelete;
-import tech.v8.crudbackendmvp.model.vaga.Vaga;
 import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontCriacao;
+import tech.v8.crudbackendmvp.model.vaga.Vaga;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "funcionario")
-@SQLDelete(sql = "UPDATE funcionarios SET estado_logico = false WHERE id = ?")
 public class Funcionario {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario_seq")
@@ -41,11 +39,6 @@ public class Funcionario {
     private String funcao;
 
 
-    @NotNull
-    @Column(name = "estado_logico", nullable = false)
-    private Boolean estadoLogico = true;
-
-
     public Funcionario(FuncionarioFrontCriacao dto, Pessoa pessoa) {
 
         this.pessoa = pessoa;
@@ -54,6 +47,5 @@ public class Funcionario {
         this.departamento = dto.getDepartamento();
         this.funcao = dto.getFuncao();
 
-        this.estadoLogico = true;
     }
 }

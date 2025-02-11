@@ -11,9 +11,9 @@ import java.util.Optional;
 
 @Repository
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
-    @Query("SELECT f FROM Funcionario f WHERE f.estadoLogico = true")
+    @Query("SELECT f FROM Funcionario f WHERE f.pessoa.estadoLogico = true")
     List<Funcionario> findAllAtivos();
 
-    @Query("SELECT f FROM Funcionario f WHERE f.estadoLogico = true AND f.id = :id")
+    @Query("SELECT f FROM Funcionario f WHERE f.pessoa.estadoLogico = true AND f.id = :id")
     Optional<Funcionario> findAtivoById(@Param("id") long id);
 }

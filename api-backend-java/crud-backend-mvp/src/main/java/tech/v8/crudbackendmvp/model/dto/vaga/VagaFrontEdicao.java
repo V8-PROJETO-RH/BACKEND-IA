@@ -1,9 +1,11 @@
 package tech.v8.crudbackendmvp.model.dto.vaga;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
-import tech.v8.crudbackendmvp.model.vaga.Prova;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,8 +14,6 @@ import java.util.List;
 public class VagaFrontEdicao {
 
     private Long responsavel_id;
-
-    private List<Prova> provas;
 
     @NotBlank(message = "O nome da vaga não pode ser vazio.")
     private String nome;
@@ -27,20 +27,25 @@ public class VagaFrontEdicao {
     @NotBlank(message = "A descrição da vaga é obrigatória.")
     private String descricao;
 
-    @NotBlank(message = "A responsabilidade da vaga deve ser informada.")
-    private String responsabilidade;
+    @NotEmpty(message = "A responsabilidade da vaga deve ser informada.")
+    private List<String> responsabilidades;
 
-    @NotBlank(message = "Os requisitos são obrigatórios.")
-    private String requisitos;
 
-    @NotNull(message = "O salário é obrigatório.")
+    @NotEmpty(message = "Os requisitos são obrigatórios.")
+    private List<String> requisitos;
+
+
+    @Positive(message = "A faixa salarial deve ser maior que zero.")
+    @NotNull(message = "A faixa salarial é obrigatória.")
+    @JsonProperty("faixa_salarial")
     private BigDecimal faixaSalarial;
 
     @NotBlank(message = "O regime de contratação deve ser informado.")
+    @JsonProperty("regime_contratacao")
     private String regimeContratacao;
 
-    @NotBlank(message = "Os benefícios da vaga devem ser informados.")
-    private String beneficios;
+    @NotEmpty(message = "Os benefícios da vaga devem ser informados.")
+    private List<String> beneficios;
 
     @NotBlank(message = "O modelo da vaga deve ser informado.")
     private String modelo;

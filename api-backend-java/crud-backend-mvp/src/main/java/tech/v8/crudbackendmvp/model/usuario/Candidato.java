@@ -7,12 +7,11 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.SQLDelete;
 import tech.v8.crudbackendmvp.infra.validation.Telefone;
-import tech.v8.crudbackendmvp.model.vaga.ResultadoFinal;
-import tech.v8.crudbackendmvp.model.vaga.VagasAplicadas;
 import tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoFrontCriacao;
 import tech.v8.crudbackendmvp.model.enums.Genero;
+import tech.v8.crudbackendmvp.model.vaga.ResultadoFinal;
+import tech.v8.crudbackendmvp.model.vaga.VagaAplicada;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "candidatos")
-@SQLDelete(sql = "UPDATE candidatos SET estado_logico = false WHERE id = ?")
 public class Candidato {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "candidato_seq")
@@ -34,7 +32,7 @@ public class Candidato {
     private Pessoa pessoa;
 
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<VagasAplicadas> vagasAplicadas;
+    private List<VagaAplicada> vagasAplicadas;
 
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ResultadoFinal> resultadoProvas;
@@ -50,6 +48,9 @@ public class Candidato {
 
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalhesIdiomas> detalhesIdiomas;
+
+    @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DetalhesExperiencias> detalhesExperiencia;
 
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Certificado> certificados;
@@ -98,16 +99,13 @@ public class Candidato {
     @Column(name = "estado", nullable = false)
     private String estado;
 
-    @NotNull
-    @Column(name = "estado_logico", nullable = false)
-    private Boolean estadoLogico = true;
-
     public Candidato(CandidatoFrontCriacao dto, Pessoa pessoa) {
         this.vagasAplicadas = new ArrayList<>();
         this.resultadoProvas = new ArrayList<>();
         this.detalhesHabilidades = new ArrayList<>();
         this.detalhesFormacao = new ArrayList<>();
         this.detalhesIdiomas = new ArrayList<>();
+        this.detalhesExperiencia = new ArrayList<>();
         this.certificados = new ArrayList<>();
         this.pessoa = pessoa;
 
@@ -121,7 +119,6 @@ public class Candidato {
         this.bairro = dto.getBairro();
         this.cidade = dto.getCidade();
         this.estado = dto.getEstado();
-        this.estadoLogico = true;
     }
 
     public void setGenero(String genero) {

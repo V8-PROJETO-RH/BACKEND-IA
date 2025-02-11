@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tech.v8.crudbackendmvp.infra.validation.Email;
 
 import java.time.LocalDate;
 
@@ -22,6 +23,7 @@ public class PessoaFrontCriacao {
     private String nome;
 
     @NotBlank(message = "O email nao pode estar vazio.")
+    @Email
     private String email;
 
     @NotBlank(message = "O cpf não pode estar vazio.")
@@ -36,11 +38,6 @@ public class PessoaFrontCriacao {
     @JsonFormat(pattern = "dd/MM/yyyy") // Define o formato esperado no JSON
     private LocalDate dataNascimento;
 
-    @NotBlank(message = "A senha não pode estar vazia.")
-    private String senha;
-
-    @NotBlank(message = "A role não pode estar vazia.")
-    private String role;
 
 
 }

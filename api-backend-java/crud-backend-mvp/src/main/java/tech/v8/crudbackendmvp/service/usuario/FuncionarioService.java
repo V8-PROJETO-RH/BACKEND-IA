@@ -5,11 +5,12 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.v8.crudbackendmvp.exception.ResourceNotFoundException;
-import tech.v8.crudbackendmvp.model.usuario.Funcionario;
 import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontCriacao;
 import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontEdicao;
 import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontResposta;
 import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioMapper;
+import tech.v8.crudbackendmvp.model.enums.Role;
+import tech.v8.crudbackendmvp.model.usuario.Funcionario;
 import tech.v8.crudbackendmvp.model.usuario.Pessoa;
 import tech.v8.crudbackendmvp.repository.usuario.FuncionarioRepository;
 
@@ -32,7 +33,7 @@ public class FuncionarioService {
 
     @Transactional
     public FuncionarioFrontResposta create(FuncionarioFrontCriacao dto) {
-        Pessoa novaPessoa = pessoaService.create(dto);
+        Pessoa novaPessoa = pessoaService.create(dto, Role.RH.name());
 
         Funcionario novoFuncionario = toFuncionario(dto, novaPessoa);
 
@@ -50,19 +51,11 @@ public class FuncionarioService {
 
     public Funcionario findById(Long id) {
         if (id == null) {
-            throw new IllegalArgumentException("ID cannot be null.");
+            throw new IllegalArgumentException("ID do funcionário não pode ser nulo");
         }
 
         return funcionarioRepository.findAtivoById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Funcionário de id " + id + " não encontrado."));
-    }
-
-    public Funcionario getFuncionarioReferenceById(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("ID cannot be null.");
-        }
-        return funcionarioRepository.getReferenceById(id);
-
     }
 
     @Transactional
@@ -88,7 +81,9 @@ public class FuncionarioService {
     }
 
     public void delete(Long id){
-        funcionarioRepository.delete(findById(id));
+        Funcionario funcionarioEcontrado = findById(id);
+        funcionarioEcontrado.getPessoa().setEstadoLogico(false);
+        funcionarioRepository.save(funcionarioEcontrado);
     }
 
 }

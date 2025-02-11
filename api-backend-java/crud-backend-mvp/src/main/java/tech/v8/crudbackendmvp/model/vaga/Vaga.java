@@ -12,6 +12,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.validator.constraints.Length;
 import tech.v8.crudbackendmvp.model.dto.vaga.VagaFrontCriacao;
 import tech.v8.crudbackendmvp.model.enums.Modelo;
+import tech.v8.crudbackendmvp.model.enums.RegimeContratacao;
 import tech.v8.crudbackendmvp.model.enums.StatusVaga;
 import tech.v8.crudbackendmvp.model.usuario.Funcionario;
 
@@ -41,6 +42,10 @@ public class Vaga {
     @JsonManagedReference
     private List<Prova> provas;
 
+    @OneToMany(mappedBy = "vaga", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<VagaAplicada> vagasAplicadas;
+
     @NotNull
     @Length(min = 4)
     @Column(name = "nome", nullable = false)
@@ -65,24 +70,33 @@ public class Vaga {
 
 
     @NotNull
+    @ElementCollection
+    @CollectionTable(name = "vaga_responsabilidades",
+            joinColumns = @JoinColumn(name = "vaga_id"))
     @Column(name = "responsabilidade", nullable = false)
-    private String responsabilidade;
+    private List<String> responsabilidades;
 
     @NotNull
-    @Column(name = "requisitos", nullable = false)
-    private String requisitos;
+    @ElementCollection
+    @CollectionTable(name = "vaga_requisitos",
+    joinColumns = @JoinColumn(name = "vaga_id"))
+    @Column(name = "requisito", nullable = false)
+    private List<String> requisitos;
 
     @NotNull
     @Column(name = "faixa_salarial", nullable = false)
     private BigDecimal faixaSalarial;
 
-    @NotNull
-    @Column(name = "regime_contratacao", nullable = false, length = 45)
-    private String regimeContratacao;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "regime_contratacao")
+    private RegimeContratacao regimeContratacao;
 
     @NotNull
-    @Column(name = "beneficios", nullable = false)
-    private String beneficios;
+    @ElementCollection
+    @CollectionTable(name = "vaga_beneficios",
+    joinColumns = @JoinColumn(name = "vaga_id"))
+    @Column(name = "beneficio", nullable = false)
+    private List<String> beneficios;
 
     @Enumerated(EnumType.STRING) // Converter para String no banco
     @Column(name = "status", length = 45)
@@ -102,22 +116,23 @@ public class Vaga {
 
     @NotNull
     @Column(name = "estado_logico", nullable = false)
-    private Boolean estadoLogico = true; // Tipo booleano com valor padrão true
+    private Boolean estadoLogico;
 
     public Vaga(VagaFrontCriacao dto){
         this.responsavel = null;
         this.provas = new ArrayList<>();
+        this.vagasAplicadas = new ArrayList<>();
 
         this.nome = dto.getNome();
         this.tipo = dto.getTipo();
         this.localidade = dto.getLocalidade();
         this.descricao = dto.getDescricao();
-        this.responsabilidade = dto.getResponsabilidade();
+        this.responsabilidades = dto.getResponsabilidades();
         this.requisitos = dto.getRequisitos();
         this.faixaSalarial = dto.getFaixaSalarial();
-        this.regimeContratacao = dto.getRegimeContratacao();
         this.beneficios = dto.getBeneficios();
 
+        this.setRegimeContratacao(dto.getRegimeContratacao());
         this.setModelo(dto.getModelo());
         this.setStatus(dto.getStatus());
 
@@ -126,6 +141,14 @@ public class Vaga {
         this.dataCriacao = LocalDateTime.now();
 
         this.estadoLogico = true;
+    }
+
+    public void setRegimeContratacao(String regimeContratacao) {
+        try {
+            this.regimeContratacao = RegimeContratacao.fromString(regimeContratacao);
+        } catch (IllegalArgumentException e) {
+            throw new ConstraintViolationException(e.getMessage(), null);
+        }
     }
 
     public void setModelo(String modelo) {

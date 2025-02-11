@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tech.v8.crudbackendmvp.model.dto.usuario.candidato.certificados.CertificadoFrontCriacao;
 
 import java.time.LocalDate;
 
@@ -38,4 +39,12 @@ public class Certificado {
     @NotNull
     @Column(name = "data_vencimento", nullable = false)
     private LocalDate dataVencimento;
+
+    public Certificado(CertificadoFrontCriacao dto, Candidato candidato) {
+        this.candidato = candidato;
+
+        this.nome = dto.getNome();
+        this.dataEmissao = dto.getDtEmissao();
+        this.dataVencimento = dto.getDtVencimento();
+    }
 }

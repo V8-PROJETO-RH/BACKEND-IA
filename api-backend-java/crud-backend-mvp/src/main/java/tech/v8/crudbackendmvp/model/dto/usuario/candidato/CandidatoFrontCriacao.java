@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import tech.v8.crudbackendmvp.infra.validation.Telefone;
 import tech.v8.crudbackendmvp.model.dto.usuario.pessoa.PessoaFrontCriacao;
 
 @EqualsAndHashCode(callSuper = true)
@@ -19,6 +20,7 @@ public class CandidatoFrontCriacao extends PessoaFrontCriacao {
     private String nomeCompleto;
 
     @NotBlank(message = "o telefone do candidato não pode estar vazio.")
+    @Telefone
     private String telefone;
 
     @NotBlank(message = "o linkedin do candidato não pode estar vazio.")

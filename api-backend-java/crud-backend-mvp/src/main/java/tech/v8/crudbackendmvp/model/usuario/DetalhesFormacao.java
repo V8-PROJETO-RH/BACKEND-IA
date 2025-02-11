@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tech.v8.crudbackendmvp.model.dto.usuario.candidato.formacoes.FormacaoFrontCriacao;
 
 import java.time.LocalDate;
 
@@ -48,4 +49,13 @@ public class DetalhesFormacao {
     @NotNull
     @Column(name = "data_final", nullable = false)
     private LocalDate dataFinal;
+
+    public DetalhesFormacao(FormacaoFrontCriacao dto, Candidato candidato) {
+        this.candidato = candidato;
+        this.nomeInstituicao = dto.getNomeInstituicao();
+        this.escolaridade = dto.getEscolaridade();
+        this.area = dto.getArea();
+        this.dataInicio = dto.getDtInicio();
+        this.dataFinal = dto.getDtFinal();
+    }
 }

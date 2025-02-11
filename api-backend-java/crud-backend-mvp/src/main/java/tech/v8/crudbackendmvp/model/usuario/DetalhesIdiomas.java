@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tech.v8.crudbackendmvp.model.dto.usuario.candidato.idiomas.IdiomaFrontCriacao;
 
 @Data
 @NoArgsConstructor
@@ -32,4 +33,11 @@ public class DetalhesIdiomas {
     @Size(max = 255)
     @Column(name = "proficiencia", nullable = false)
     private String proficiencia;
+
+    public DetalhesIdiomas(IdiomaFrontCriacao dto, Candidato candidato) {
+        this.candidato = candidato;
+
+        this.nome = dto.getNome();
+        this.proficiencia = dto.getProficiencia();
+    }
 }
