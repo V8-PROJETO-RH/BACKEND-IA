@@ -8,7 +8,7 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: 281004
-      POSTGRES_DB: mvp-dev
+      POSTGRES_DB: projeto-v8
     volumes:
       - pg_data:/var/lib/postgresql/data
 volumes:
