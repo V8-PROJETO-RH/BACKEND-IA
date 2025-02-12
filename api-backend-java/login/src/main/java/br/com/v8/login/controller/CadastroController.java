@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -31,8 +32,10 @@ public class CadastroController {
     @PostMapping("/cadastro")
     public ResponseEntity<String> registrarUsuario(@Validated @RequestBody UsuarioRegistroDTO usuarioDTO){
         Usuario usuario = usuarioService.registro(usuarioDTO);
-            return new ResponseEntity<>("Usuário registrado com sucesso!",
-                   HttpStatus.CREATED);
+            return ResponseEntity.ok(Map.of(
+                "mensagem", "Usuário cadastrado com sucesso",
+                "usuario", usuario
+        ).toString());
     }
 
     @PostMapping("/login")
