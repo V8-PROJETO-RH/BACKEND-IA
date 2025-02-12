@@ -1,7 +1,9 @@
 package br.com.v8.login.controller;
 
 import br.com.v8.login.model.DTO.LoginDTO;
+import br.com.v8.login.model.DTO.UsuarioCreatedDTO;
 import br.com.v8.login.model.DTO.UsuarioRegistroDTO;
+import br.com.v8.login.model.DTO.UsuarioRespostaDTO;
 import br.com.v8.login.model.Usuario;
 import br.com.v8.login.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -30,12 +33,13 @@ public class CadastroController {
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity<String> registrarUsuario(@Validated @RequestBody UsuarioRegistroDTO usuarioDTO){
+    public ResponseEntity<Map<String, Object>> registrarUsuario(@Validated @RequestBody UsuarioRegistroDTO usuarioDTO){
         Usuario usuario = usuarioService.registro(usuarioDTO);
-            return ResponseEntity.ok(Map.of(
-                "mensagem", "Usuário cadastrado com sucesso",
-                "usuario", usuario
-        ).toString());
+        Map<String, Object> response = new HashMap<>();
+        response.put("usuario", new UsuarioCreatedDTO(usuario));
+        response.put("mensagem", "Usuário cadastrado com sucesso");
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PostMapping("/login")
