@@ -32,6 +32,7 @@ public class VagaFrontCriacao {
     private String modelo;
 
     @NotEmpty(message = "A responsabilidade da vaga deve ser informada.")
+    @NotNull
     private List<String> responsabilidades;
 
 
@@ -40,6 +41,7 @@ public class VagaFrontCriacao {
     private Integer quantidade;
 
     @NotEmpty(message = "Os requisitos são obrigatórios.")
+    @NotNull
     private List<String> requisitos;
 
 

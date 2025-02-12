@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ResultadoFinalRepository extends JpaRepository<ResultadoFinal, Long> {
-    List<ResultadoFinal> findAllByVagaId(Long vagaId);
+    List<ResultadoFinal> findAllById(Long vagaId);
 }

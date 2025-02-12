@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import tech.v8.crudbackendmvp.infra.validation.Telefone;
 import tech.v8.crudbackendmvp.model.dto.usuario.candidato.CandidatoFrontCriacao;
@@ -29,6 +30,7 @@ public class Candidato {
 
     @MapsId
     @OneToOne(mappedBy = "candidato")
+    @EqualsAndHashCode.Exclude
     private Pessoa pessoa;
 
     @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL, orphanRemoval = true)

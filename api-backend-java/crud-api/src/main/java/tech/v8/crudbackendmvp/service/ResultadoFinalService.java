@@ -9,6 +9,7 @@ import tech.v8.crudbackendmvp.model.vaga.Prova;
 import tech.v8.crudbackendmvp.model.vaga.ResultadoFinal;
 import tech.v8.crudbackendmvp.model.vaga.VagaAplicada;
 import tech.v8.crudbackendmvp.repository.ResultadoFinalRepository;
+import tech.v8.crudbackendmvp.repository.VagaAplicadaRepository;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ResultadoFinalService {
 
+    private VagaAplicadaRepository vagaAplicadaRepository;
     private ResultadoFinalRepository repository;
     private VagaAplicadaService vagaAplicadaService;
     private ProvaService provaService;
@@ -23,7 +25,7 @@ public class ResultadoFinalService {
 
 
     public List<ResultadoFrontResposta> findResultadosById(Long id) {
-        return repository.findAllByVagaId(id).stream()
+        return repository.findAllById(id).stream()
                 .map(ResultadoFinalMapper::toDTO).toList();
     }
 
@@ -37,6 +39,7 @@ public class ResultadoFinalService {
         vagaAplicadaEncontrada.setResultadoFinal(resultadoSalvo);
         provaEncontrada.getResultados().add(resultadoSalvo);
 
+        vagaAplicadaRepository.save(vagaAplicadaEncontrada);
 
         return ResultadoFinalMapper.toDTO(resultadoSalvo);
 

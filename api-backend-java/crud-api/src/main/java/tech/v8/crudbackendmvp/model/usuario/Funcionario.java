@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import tech.v8.crudbackendmvp.model.dto.usuario.funcionario.FuncionarioFrontCriacao;
 import tech.v8.crudbackendmvp.model.vaga.Vaga;
@@ -24,6 +25,7 @@ public class Funcionario {
 
     @MapsId
     @OneToOne(mappedBy = "funcionario")
+    @EqualsAndHashCode.Exclude
     private Pessoa pessoa;
 
     @OneToMany(mappedBy = "responsavel", cascade = CascadeType.ALL)

@@ -18,7 +18,6 @@ import tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaPage;
 import tech.v8.crudbackendmvp.service.ResultadoFinalService;
 import tech.v8.crudbackendmvp.service.VagaAplicadaService;
 
-import java.util.List;
 
 @Validated
 @AllArgsConstructor
@@ -76,12 +75,12 @@ public class VagasAplicadasController {
 
     @GetMapping("/{id}/resultados")
     @ResponseStatus(HttpStatus.OK)
-    public List<ResultadoFrontResposta> findResultadoById(
+    public ResultadoFrontResposta findResultadoById(
             @PathVariable
             @NotNull(message = "o parâmetro id não pode ser nulo.")
             @Positive(message = "o parâmetro id deve ser positivo.")
             Long id) {
-        return resultadoService.findResultadosById(id);
+        return vagaAplicadaService.findResultado(id);
     }
 
     @PostMapping("/{id}/resultados")

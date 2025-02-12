@@ -9,6 +9,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.v8.crudbackendmvp.exception.ResourceNotFoundException;
+import tech.v8.crudbackendmvp.model.dto.resultado.ResultadoFrontResposta;
 import tech.v8.crudbackendmvp.model.dto.vagaaplicada.*;
 import tech.v8.crudbackendmvp.model.usuario.Candidato;
 import tech.v8.crudbackendmvp.model.vaga.Vaga;
@@ -17,6 +18,7 @@ import tech.v8.crudbackendmvp.repository.VagaAplicadaRepository;
 import tech.v8.crudbackendmvp.service.usuario.CandidatoService;
 
 import java.util.List;
+import java.util.Optional;
 
 import static tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaMapper.toDTO;
 import static tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaMapper.toVagaAplicada;
@@ -69,6 +71,12 @@ public class VagaAplicadaService {
     public VagaAplicada findById(Long id) {
         return vagaAplicadaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Vaga aplicada de id " + id + " não encontrada."));
+    }
+
+    public ResultadoFrontResposta findResultado(Long id){
+        Optional<VagaAplicada> vagaAplicada = vagaAplicadaRepository.findByResultadoFinalId(id);
+        return vagaAplicada.map(aplicada -> new ResultadoFrontResposta(aplicada.getResultadoFinal())).orElse(null);
+
     }
 
     public VagaAplicada getVagaAplicadaReferenceById(Long id) {

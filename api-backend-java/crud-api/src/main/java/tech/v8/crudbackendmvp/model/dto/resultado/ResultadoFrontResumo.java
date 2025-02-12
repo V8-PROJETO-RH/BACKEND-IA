@@ -17,8 +17,14 @@ public class ResultadoFrontResumo {
     private BigDecimal aderencia;
 
     public ResultadoFrontResumo(ResultadoFinal resultado) {
-        this.notaProva = resultado.getNota();
-        this.aderencia = resultado.getAderencia();
+        if (resultado != null) {
+            this.notaProva = resultado.getNota();
+            this.aderencia = resultado.getAderencia();
+        }else {
+            this.notaProva = null;
+            this.aderencia = null;
+        }
+
 
     }
 }

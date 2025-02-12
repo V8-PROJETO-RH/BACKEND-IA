@@ -9,6 +9,8 @@ import tech.v8.crudbackendmvp.model.dto.resultado.ResultadoFrontCriacao;
 import tech.v8.crudbackendmvp.model.usuario.Candidato;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -31,9 +33,8 @@ public class ResultadoFinal {
     @JoinColumn(name = "candidato_id", nullable = false)
     private Candidato candidato;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vaga_id", nullable = false)
-    private Vaga vaga;
+    @OneToMany(mappedBy = "resultadoFinal", cascade = CascadeType.ALL)
+    private List<VagaAplicada> vagasAplicadas;
 
     @Column(name = "nota",  precision = 5, scale = 2, nullable = false)
     private BigDecimal nota;
@@ -44,7 +45,8 @@ public class ResultadoFinal {
     public ResultadoFinal(ResultadoFrontCriacao dto, VagaAplicada vagaAplicada, Prova prova) {
         this.prova = prova;
         this.candidato = vagaAplicada.getCandidato();
-        this.vaga = vagaAplicada.getVaga();
+        this.vagasAplicadas = new ArrayList<>();
+        this.vagasAplicadas.add(vagaAplicada);
         this.nota = dto.getNotaProva();
         this.aderencia = dto.getAderencia();
     }
