@@ -46,7 +46,9 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth -> oauth
+                        .loginPage("/oauth2/authorization/google")
                         .successHandler(successHandler)
+                        .permitAll()
                         .tokenEndpoint(token -> {
                             var defaultMapConverter = new DefaultMapOAuth2AccessTokenResponseConverter();
                             Converter<Map<String, Object>, OAuth2AccessTokenResponse> linkedinMapConverter = tokenResponse -> {
@@ -63,8 +65,9 @@ public class SecurityConfig {
                             token.accessTokenResponseClient(client);
                         }))
                 .logout(logout ->
-                        logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
-                                .logoutSuccessUrl("/redirect"));
+                        logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll())
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
