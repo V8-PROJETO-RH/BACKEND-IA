@@ -1,6 +1,46 @@
 services:
+  crud-api:
+    image: crud-api-img
+    networks:
+      - backend-network
+    ports:
+      - "8082:8082"
+    environment:
+      DB-HOST: root
+      DB-PASSWORD: 281004
+      DB: projeto-v8
+      DB-IP: postgres
+      EUREKA-IP: server-gateway
+  login-api:
+    image: login-api-img
+    networks:
+      - backend-network
+    ports:
+      - "8081:8081"
+    environment:
+      DB-HOST: root
+      DB-PASSWORD: 281004
+      DB: projeto-v8
+      DB-IP: postgres
+      EUREKA-IP: server-gateway
+  gateway:
+    image: gateway-img
+    networks:
+      - backend-network
+    ports:
+      - "8080:8080"
+    environment:
+      EUREKA-IP: server-gateway
+  server-gateway:
+    image: server-gateway-img
+    networks:
+      - backend-network
+    ports:
+      - "8761:8761"
   postgres:
     image: postgres:latest
+    networks:
+      - backend-network
     container_name: postgres-mvp-dev
     restart: always
     ports:
@@ -14,3 +54,6 @@ services:
 volumes:
   pg_data:
     driver: local
+networks:
+  backend-network:
+    driver: bridge
