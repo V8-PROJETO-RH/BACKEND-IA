@@ -1,0 +1,6 @@
+# Dockerfile (gateway-img)
+FROM openjdk:21-jdk
+WORKDIR /app
+COPY server-gateway.jar /app/	
+EXPOSE 8761
+CMD ["java", "-jar", "server-gateway.jar"]

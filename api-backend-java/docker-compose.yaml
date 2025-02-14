@@ -5,6 +5,8 @@ services:
       - backend-network
     ports:
       - "8082:8082"
+    depends_on:
+      - gateway
     environment:
       DB-HOST: root
       DB-PASSWORD: 281004
@@ -17,6 +19,8 @@ services:
       - backend-network
     ports:
       - "8081:8081"
+    depends_on:
+      - gateway
     environment:
       DB-HOST: root
       DB-PASSWORD: 281004
@@ -29,6 +33,8 @@ services:
       - backend-network
     ports:
       - "8080:8080"
+    depends_on:
+      - server-gateway
     environment:
       EUREKA-IP: server-gateway
   server-gateway:

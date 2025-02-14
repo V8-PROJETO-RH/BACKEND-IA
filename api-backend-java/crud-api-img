@@ -1,0 +1,6 @@
+# Dockerfile (crud-api)
+FROM openjdk:21-jdk
+WORKDIR /app
+COPY crud-api.jar /app/	
+EXPOSE 8082
+CMD ["java", "-jar", "crud-api.jar"]
