@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/api/cadastro", "/api/login", "/resources/**", "/redirect").permitAll()
+                        .requestMatchers("/login", "/api/cadastro", "/api/login", "/resources/**", "/api/mail").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth -> oauth
@@ -66,8 +66,7 @@ public class SecurityConfig {
                         }))
                 .logout(logout ->
                         logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll())
-                .httpBasic(AbstractHttpConfigurer::disable)
-                .formLogin(AbstractHttpConfigurer::disable);
+                .httpBasic(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
