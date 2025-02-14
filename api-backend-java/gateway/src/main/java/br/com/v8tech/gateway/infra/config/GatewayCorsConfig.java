@@ -1,29 +1,32 @@
-package br.com.v8.login.config;
+package br.com.v8tech.gateway.infra.config;
+
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+
 @Configuration
-public class Config implements WebMvcConfigurer {
+public class GatewayCorsConfig implements WebMvcConfigurer {
 
     @Bean
-    public CorsFilter corsFilter() {
+    public CorsWebFilter corsWebFilter() {
+        CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.addAllowedOrigin("*"); // Permite todas as origens
+        corsConfig.addAllowedMethod("*"); // Permite todos os métodos (GET, POST, etc.)
+        corsConfig.addAllowedHeader("*"); // Permite todos os headers
+        corsConfig.setAllowCredentials(true);
+        corsConfig.setMaxAge(3600L); // Cache por 1 hora
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
+        source.registerCorsConfiguration("/**", corsConfig);
 
-        config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
+        return new CorsWebFilter(source);
     }
 
     @Bean

@@ -2,7 +2,6 @@ package br.com.v8.login.config;
 
 
 import br.com.v8.login.component.OAuth2LoginSuccessHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;

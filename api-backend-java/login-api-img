@@ -1,0 +1,6 @@
+# Dockerfile (crud-api)
+FROM openjdk:21-jdk
+WORKDIR /app
+COPY login-api.jar /app/	
+EXPOSE 8081
+CMD ["java", "-jar", "login-api.jar"]
