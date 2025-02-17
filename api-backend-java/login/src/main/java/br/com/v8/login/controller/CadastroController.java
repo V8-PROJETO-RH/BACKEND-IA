@@ -3,7 +3,6 @@ package br.com.v8.login.controller;
 import br.com.v8.login.model.DTO.LoginDTO;
 import br.com.v8.login.model.DTO.UsuarioCreatedDTO;
 import br.com.v8.login.model.DTO.UsuarioRegistroDTO;
-import br.com.v8.login.model.DTO.UsuarioRespostaDTO;
 import br.com.v8.login.model.Usuario;
 import br.com.v8.login.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
