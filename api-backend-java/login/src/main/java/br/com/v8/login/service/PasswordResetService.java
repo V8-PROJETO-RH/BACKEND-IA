@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -22,8 +24,14 @@ public class PasswordResetService {
     private final EmailService emailService;
 
     public void sendResetLink(String email) {
-        Usuario user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+        System.out.println("🔍 Procurando usuário com email: " + email);
+        Optional<Usuario> optionalUser = userRepository.findByEmail(email.trim());
+
+        if (optionalUser.isEmpty()) {
+            throw new NoSuchElementException("Nenhum usuário encontrado com este e-mail.");
+        }
+
+        Usuario user = optionalUser.get();
 
         String token = UUID.randomUUID().toString();
         PasswordResetToken resetToken = new PasswordResetToken();
@@ -33,11 +41,11 @@ public class PasswordResetService {
 
         tokenRepository.save(resetToken);
 
-        String resetUrl = "http://localhost:3000/reset-password?token=" + token;
+        String resetUrl = "http://localhost:5173/reset-password?token=" + token;
         String message = "<p>Olá, " + user.getNome() + "!</p>"
                 + "<p>Para redefinir sua senha, clique no link abaixo:</p>"
                 + "<a href=\"" + resetUrl + "\">Redefinir Senha</a>";
-        Email emailSend = new Email(user.getEmail(), "Redefinição de senha", message);
+        Email emailSend = new Email(email, "Redefinição de senha", message);
 
         emailService.sendEmail(emailSend);
     }

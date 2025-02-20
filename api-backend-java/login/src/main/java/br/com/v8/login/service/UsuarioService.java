@@ -54,6 +54,22 @@ public class UsuarioService {
         return cadastroRepository.save(usuario);
     }
 
+    @Transactional
+    public Usuario registroAdmin(UsuarioRegistroDTO usuarioDTO) {
+        validarCampos(usuarioDTO);
+        validarCPF(usuarioDTO.getCpf());
+        Usuario usuario = new Usuario();
+
+        usuario.setEmail(usuarioDTO.getEmail());
+        usuario.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
+        usuario.setNome(usuarioDTO.getNome());
+        usuario.setCpf(usuarioDTO.getCpf());
+        usuario.setDataNasc(usuarioDTO.getDataNasc());
+        usuario.setTipoUsuario("USUARIO_ADMIN");
+
+        return cadastroRepository.save(usuario);
+    }
+
     private void validarCampos(UsuarioRegistroDTO usuarioDTO) {
         if (cadastroRepository.existsByEmail(usuarioDTO.getEmail())) {
             throw new ValidationException("Email já está em uso");

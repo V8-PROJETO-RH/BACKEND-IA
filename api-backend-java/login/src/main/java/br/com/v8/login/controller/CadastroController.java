@@ -40,6 +40,16 @@ public class CadastroController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PostMapping("/cadastro/admin")
+    public ResponseEntity<Map<String, Object>> registrarUsuarioAdmin(@Validated @RequestBody UsuarioRegistroDTO usuarioDTO){
+        Usuario usuario = usuarioService.registroAdmin(usuarioDTO);
+        Map<String, Object> response = new HashMap<>();
+        response.put("usuario", new UsuarioCreatedDTO(usuario));
+        response.put("mensagem", "Usuário admin cadastrado com sucesso");
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<String> login(@Validated @RequestBody LoginDTO loginDTO) {
         try {

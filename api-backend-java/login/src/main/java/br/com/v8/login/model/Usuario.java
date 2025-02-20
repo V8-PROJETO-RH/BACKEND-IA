@@ -55,6 +55,12 @@ public class Usuario {
         this.roles = roles;
     }
 
+    @PrePersist
+    @PreUpdate
+    private void formatEmail() {
+        this.email = this.email.toLowerCase().trim();
+    }
+
     public Usuario() {
     }
 
