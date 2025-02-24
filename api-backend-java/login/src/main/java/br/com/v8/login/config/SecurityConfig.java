@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/api/cadastro/**", "/api/login", "/resources/**", "/api/mail", "/api/password-reset/**").permitAll()
+                        .requestMatchers("login/api/**", "/oauth2/authorization/google", "/login", "/api/cadastro/**", "/api/login", "/resources/**", "/api/mail", "/api/password-reset/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth -> oauth
