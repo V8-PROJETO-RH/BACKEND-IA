@@ -115,13 +115,21 @@ public class UsuarioService {
 
     public String loginUsuario(String email, String senha) {
         Optional<Usuario> optionalUsuario = cadastroRepository.findByEmail(email);
+
+        if (!cadastroRepository.existsByEmail(email)) {
+            throw new ValidationException("Este email não esta cadastrado");
+        }
+
         if (optionalUsuario.isPresent()) {
             Usuario usuario = optionalUsuario.get();
             if (passwordEncoder.matches(senha, usuario.getSenha())){
                 return jwtUtil.generateToken(usuario.getEmail());
+            } else {
+                throw new ValidationException("Senha incorreta");
             }
+        } else {
+            throw new ValidationException("Usuário não encontrado");
         }
-        throw new ValidationException("Credenciais inválidas");
     }
 
 }
