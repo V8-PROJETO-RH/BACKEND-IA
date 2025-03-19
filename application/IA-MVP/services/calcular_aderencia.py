@@ -1,5 +1,5 @@
 from models.entidades import Participante, Vagas, Prova
-from services.groq_client import GroqClient
+from services.Google_client import GoogleAIStudioClient
 
 def prepare_question(participante: Participante, vaga: Vagas, prova: Prova) -> str:
     question = (
@@ -15,13 +15,13 @@ def prepare_question(participante: Participante, vaga: Vagas, prova: Prova) -> s
     )
     return question
 
-def calculate_aderencia_with_groq(participante: Participante, vaga: Vagas, prova: Prova) -> float:
-    client = GroqClient()
+def calculate_aderencia_with_google(participante: Participante, vaga: Vagas, prova: Prova) -> float:
+    client = GoogleAIStudioClient()
     question = prepare_question(participante, vaga, prova)
     aderencia_response = client.calcular_aderencia(question)
 
     try:
-        aderencia_percent = float(aderencia_response.strip('%'))
+        aderencia_percent = float(aderencia_response.replace('%', ''))
     except ValueError:
         print("Erro na interpretação da resposta:", aderencia_response)
         return 0.0
