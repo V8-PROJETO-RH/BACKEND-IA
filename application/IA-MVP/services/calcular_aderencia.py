@@ -7,10 +7,9 @@ def prepare_question(participante: Participante, vaga: Vagas, prova: Prova) -> s
         f"Experiências: {participante.experiencias}\n"
         f"Formações Acadêmicas: {participante.formacoesAcademica}\n"
         f"Licenças e Certificados: {participante.licencasCertificados}\n\n"
-        f"Vaga:\n"
-        f"Nome: {vaga.nome}\n"
-        f"Descrição: {vaga.descricao}\n"
-        f"Requisitos: {vaga.requisitos}\n\n"
+        f"Título da Vaga: {vaga.nome} \n"
+        f"Descrição da vaga: {vaga.descricao}\n"
+        f"Requisitos da vaga: {vaga.requisitos}\n\n"
         f"Nota da Prova Pratica: {prova.notaProva}"
     )
     return question

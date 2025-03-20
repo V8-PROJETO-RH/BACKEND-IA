@@ -12,7 +12,7 @@ class GoogleAIStudioClient:
             raise ValueError('Variável de ambiente: GOOGLE_API_KEY não foi definida ou está inválida.')
 
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')  # ou outro modelo disponivel
+        self.model = genai.GenerativeModel('gemini-1.5-flash')
         self.system_message = (
             "Você é um Gerente de Recursos Humanos na área de Tecnologia, responsável por avaliar a adesão de candidatos a vagas específicas."
             "Sua tarefa é calcular uma pontuação percentual de aderência, de 0 a 100, com base nos critérios descritos abaixo:\n\n"
