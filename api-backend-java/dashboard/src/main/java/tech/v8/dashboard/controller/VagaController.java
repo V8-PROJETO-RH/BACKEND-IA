@@ -13,7 +13,7 @@ import tech.v8.dashboard.service.VagaService;
 
 
 @RestController
-@RequestMapping("/dashboard/vagas")
+@RequestMapping("/vagas")
 @AllArgsConstructor
 public class VagaController {
 

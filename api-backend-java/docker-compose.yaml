@@ -14,7 +14,7 @@ services:
       DB_IP: postgres
       EUREKA_IP: server-gateway
   dash-api:
-    image: dash-api-img
+    image: dashboard-api-img
     networks:
       - backend-network
     ports:
@@ -47,7 +47,7 @@ services:
     depends_on:
       - server-gateway
     environment:
-      EUREKA-IP: server-gateway
+      EUREKA_IP: server-gateway
   server-gateway:
     image: server-gateway-img
     networks:

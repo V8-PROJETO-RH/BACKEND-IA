@@ -1,0 +1,6 @@
+# Dockerfile (crud-api)
+FROM openjdk:21-jdk
+WORKDIR /app
+COPY dashboard-api.jar /app/
+EXPOSE 8083
+CMD ["java", "-jar", "dashboard-api.jar"]
