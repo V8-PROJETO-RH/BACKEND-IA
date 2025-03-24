@@ -44,7 +44,7 @@ public class SwaggerConfig {
                 .url("http://localhost:" + serverPort)
                 .description("Servidor de desenvolvimento local");
         Server cloudServer = new Server()
-                .url("http://34.172.20.219/:" + serverPort)
+                .url("http://34.172.20.219:" + serverPort)
                 .description("Servidor de desenvolvimento na nuvem");
 
         return Arrays.asList(localServer, cloudServer);
