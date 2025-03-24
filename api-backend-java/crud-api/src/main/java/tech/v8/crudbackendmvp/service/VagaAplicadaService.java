@@ -3,7 +3,6 @@ package tech.v8.crudbackendmvp.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
@@ -20,8 +19,7 @@ import tech.v8.crudbackendmvp.service.usuario.CandidatoService;
 import java.util.List;
 import java.util.Optional;
 
-import static tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaMapper.toDTO;
-import static tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaMapper.toVagaAplicada;
+import static tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaMapper.*;
 
 @Service
 @AllArgsConstructor
@@ -31,16 +29,20 @@ public class VagaAplicadaService {
     private final VagaService vagaService;
     private final CandidatoService candidatoService;
 
-    public VagaAplicadaPage list(@PositiveOrZero int page, @Positive @Max(50) int size) {
+
+
+    public VagaAplicadaPage list(@PositiveOrZero int page, @Positive int size) {
         List<VagaAplicada> vagasAtivas = vagaAplicadaRepository.findAll();
-        List<VagaAplicadaFrontResposta> vagas = vagasAtivas.stream()
-                .skip((long) page * size)
-                .limit(size)
-                .map(VagaAplicadaMapper::toDTO)
-                .toList();
-        int totalElements = vagasAtivas.size();
-        int totalPages = (int) Math.ceil((double) totalElements / size);
-        return new VagaAplicadaPage(vagas, totalPages, totalElements);
+        return toPage(vagasAtivas, page, size);
+    }
+
+    public VagaAplicadaPage search(String status, int page, int size) {
+        if (status == null || status.isBlank()) {
+            throw new IllegalArgumentException("Ao menos um parâmetro de busca deve ser informado (status).");
+        }
+
+        List<VagaAplicada> vagasAplicadas = vagaAplicadaRepository.findAllAtivosByFilters(status);
+        return toPage(vagasAplicadas, page, size);
     }
 
     @Transactional

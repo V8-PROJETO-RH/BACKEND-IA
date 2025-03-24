@@ -8,11 +8,22 @@ services:
     depends_on:
       - gateway
     environment:
-      DB-HOST: root
-      DB-PASSWORD: 281004
+      DB_HOST: root
+      DB_PASSWORD: 281004
       DB: projeto-v8
-      DB-IP: postgres
-      EUREKA-IP: server-gateway
+      DB_IP: postgres
+      EUREKA_IP: server-gateway
+  dash-api:
+    image: dash-api-img
+    networks:
+      - backend-network
+    ports:
+      - "8083:8083"
+    depends_on:
+      - gateway
+    environment:
+      CRUD_IP: crud-api
+      EUREKA_IP: server-gateway
   login-api:
     image: login-api-img
     networks:

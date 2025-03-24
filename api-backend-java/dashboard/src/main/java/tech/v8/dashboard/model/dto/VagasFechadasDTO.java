@@ -1,0 +1,22 @@
+package tech.v8.dashboard.model.dto;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public record VagasFechadasDTO(
+        Integer totalVagasFechadas,
+        List<VagaDTO> vagas
+) {
+    public record VagaDTO(
+            Integer id,
+            String nome,
+            String tipoVaga,
+            String localidade,
+            String modeloVaga,
+            @JsonFormat(pattern = "HH:mm:ss dd/MM/yyyy")
+            LocalDateTime dataCriacao,
+            String responsavel
+    ){}
+}

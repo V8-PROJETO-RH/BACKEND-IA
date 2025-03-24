@@ -1,7 +1,6 @@
 package tech.v8.crudbackendmvp.controller;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -29,9 +28,19 @@ public class VagasAplicadasController {
 
     @GetMapping
     public VagaAplicadaPage list(@RequestParam(defaultValue = "0") @PositiveOrZero int page,
-                                 @RequestParam(defaultValue = "10") @Positive @Max(50) int size
+                                 @RequestParam(defaultValue = "10") @Positive int size
     ) {
         return vagaAplicadaService.list(page, size);
+    }
+
+    @GetMapping("/search")
+    public VagaAplicadaPage searchVagasAplicadas(
+            @RequestParam(value = "status_like", required = false) String status,
+
+            @RequestParam(defaultValue = "0") @PositiveOrZero int page,
+            @RequestParam(defaultValue = "10") @Positive int size
+    ){
+        return vagaAplicadaService.search(status, page, size);
     }
 
     @PostMapping

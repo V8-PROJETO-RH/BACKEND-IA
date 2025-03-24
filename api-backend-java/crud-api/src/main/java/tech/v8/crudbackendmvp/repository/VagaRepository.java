@@ -21,11 +21,16 @@ public interface VagaRepository extends JpaRepository<Vaga, Long> {
     @Query("SELECT va FROM VagaAplicada va WHERE va.vaga.id = :id")
     List<VagaAplicada> findAllVagasAplicadasByVagaId(Long id);
 
-    @Query(value = "SELECT * FROM Vaga v WHERE v.estado_logico = true " +
-            "AND (:nome IS NULL OR lower(cast(v.nome as text)) LIKE lower(concat('%', :nome, '%'))) " +
-            "AND (:modelo IS NULL OR lower(cast(v.modelo as text)) LIKE lower(concat('%', :modelo, '%'))) " +
-            "AND (:local IS NULL OR lower(cast(v.localidade as text)) LIKE lower(concat('%', :local, '%')))"
-            , nativeQuery = true)
-    List<Vaga> findAllAtivosByFilters(String nome, String modelo, String local);
+    @Query(value = "SELECT * FROM vaga v WHERE v.estado_logico = true " +
+            "AND (:nome IS NULL OR v.nome ILIKE CONCAT('%', :nome, '%')) " +
+            "AND (:modelo IS NULL OR v.modelo = CAST(:modelo AS VARCHAR)) " +
+            "AND (:local IS NULL OR v.localidade ILIKE CONCAT('%', :local, '%')) " +
+            "AND (:status IS NULL OR v.status = CAST(:status AS VARCHAR))",
+            nativeQuery = true)
+    List<Vaga> findAllAtivosByFilters(
+            @Param("nome") String nome,
+            @Param("modelo") String modelo,
+            @Param("local") String local,
+            @Param("status") String status);
 
 }

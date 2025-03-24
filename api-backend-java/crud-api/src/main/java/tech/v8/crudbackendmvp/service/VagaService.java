@@ -11,6 +11,8 @@ import tech.v8.crudbackendmvp.exception.ResourceNotFoundException;
 import tech.v8.crudbackendmvp.model.dto.vaga.*;
 import tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaFrontResposta;
 import tech.v8.crudbackendmvp.model.dto.vagaaplicada.VagaAplicadaMapper;
+import tech.v8.crudbackendmvp.model.enums.Modelo;
+import tech.v8.crudbackendmvp.model.enums.StatusVaga;
 import tech.v8.crudbackendmvp.model.usuario.Funcionario;
 import tech.v8.crudbackendmvp.model.vaga.Vaga;
 import tech.v8.crudbackendmvp.repository.VagaRepository;
@@ -68,16 +70,30 @@ public class VagaService {
                 .orElseThrow(() -> new ResourceNotFoundException("Vaga de id " + id + " não encontrada."));
     }
 
-    public VagaPage search(String nome, String modelo, String local, @PositiveOrZero int page, @Positive @Max(50) int size){
+    public VagaPage search(String nome, String modelo, String local, String status, @PositiveOrZero int page, @Positive int size){
 
         // Validação: deve ser informado pelo menos um parâmetro de filtro.
-        if ((nome == null || nome.isBlank()) &&
+        if (    (nome == null || nome.isBlank()) &&
                 (modelo == null || modelo.isBlank()) &&
-                (local == null || local.isBlank())) {
-            throw new IllegalArgumentException("Ao menos um parâmetro de busca deve ser informado (nome, modelo ou local).");
+                (local == null || local.isBlank()) &&
+                (status == null || status.isBlank())
+
+        ) {
+            throw new IllegalArgumentException("Ao menos um parâmetro de busca deve ser informado (nome, modelo, local ou status).");
         }
 
-        List<Vaga> vagas = vagaRepository.findAllAtivosByFilters(nome, modelo, local);
+
+        String modeloParametro = null;
+        String statusParametro = null;
+
+        if (modelo != null && !modelo.isBlank()) {
+            modeloParametro = Modelo.fromString(modelo).name();
+        }
+        if (status != null && !status.isBlank()) {
+            statusParametro = StatusVaga.fromString(status).name();
+        }
+
+        List<Vaga> vagas = vagaRepository.findAllAtivosByFilters(nome, modeloParametro, local, statusParametro);
         return VagaMapper.toPage(vagas, page, size);
     }
 

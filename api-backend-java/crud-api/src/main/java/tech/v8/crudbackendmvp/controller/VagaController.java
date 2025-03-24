@@ -42,12 +42,13 @@ public class VagaController {
             @RequestParam(value = "nome_like", required = false) String nome,
             @RequestParam(value = "modelo_like", required = false) String modelo,
             @RequestParam(value = "local_like", required = false) String local,
+            @RequestParam(value = "status_like", required = false) String status,
 
             @RequestParam(defaultValue = "0") @PositiveOrZero int page,
-            @RequestParam(defaultValue = "10") @Positive @Max(50) int size
+            @RequestParam(defaultValue = "10") @Positive  int size
 
     ){
-        return vagaService.search(nome, modelo, local, page, size);
+        return vagaService.search(nome, modelo, local, status, page, size);
     }
 
     @PostMapping

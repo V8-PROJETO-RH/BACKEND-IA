@@ -5,25 +5,56 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d385101b-a651-4b11-a9e2-8debc84908a3" name="Changes" comment="Resolving dependences">
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/br/com/v8/login/model/PasswordResetToken.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/br/com/v8/login/repository/PasswordResetTokenRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/login/src/main/java/br/com/v8/login/service/PasswordResetService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/src/main/java/tech/v8/dashboard/client/VagaClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/src/main/java/tech/v8/dashboard/client/VagaClientImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/src/main/java/tech/v8/dashboard/config/SwaggerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/src/main/java/tech/v8/dashboard/controller/VagaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/src/main/java/tech/v8/dashboard/model/Vaga.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/src/main/java/tech/v8/dashboard/model/VagaCandidatoAprovado.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/src/main/java/tech/v8/dashboard/model/VagasCandidatosAprovadosResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/src/main/java/tech/v8/dashboard/model/VagasResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/src/main/java/tech/v8/dashboard/model/dto/VagasAbertasDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/src/main/java/tech/v8/dashboard/model/dto/VagasCandidatosAprovadosDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/src/main/java/tech/v8/dashboard/model/dto/VagasFechadasDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/src/main/java/tech/v8/dashboard/service/VagaService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/src/main/java/br/com/v8/login/controller/CadastroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/login/src/main/java/br/com/v8/login/controller/CadastroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/src/main/java/br/com/v8/login/controller/EmailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/login/src/main/java/br/com/v8/login/controller/EmailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/src/main/java/br/com/v8/login/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/login/src/main/java/br/com/v8/login/service/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/controller/VagaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/controller/VagaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/controller/VagasAplicadasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/controller/VagasAplicadasController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/infra/configuration/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/infra/configuration/SwaggerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/model/dto/vagaaplicada/VagaAplicadaMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/model/dto/vagaaplicada/VagaAplicadaMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/repository/VagaAplicadaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/repository/VagaAplicadaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/repository/VagaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/repository/VagaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/service/VagaAplicadaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/service/VagaAplicadaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/service/VagaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/crud-api/src/main/java/tech/v8/crudbackendmvp/service/VagaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud-api/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/crud-api/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud-api/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/crud-api/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud-api/src/test/java/tech/v8/crudbackendmvp/service/VagaServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Record" />
       </list>
     </option>
   </component>
@@ -39,7 +70,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/V8-PROJETO-RH/BACKEND-IA.git&quot;,
-    &quot;accountId&quot;: &quot;56e2776a-d523-4d9c-945b-03577dbc3fa6&quot;
+    &quot;accountId&quot;: &quot;849487b7-ed17-4440-bb22-3abd0bf0b8d8&quot;
   }
 }</component>
   <component name="KubernetesApiPersistence">{}</component>
@@ -60,34 +91,64 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JUnit.LoginApplicationTests.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.login [install].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.GatewayApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.LoginApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ServerGatewayApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/LowCost/Documents/V8.TECH/BACKEND-IA/api-backend-java&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CrudApiApplication.executor": "Run",
+    "Application.DashApiApplication.executor": "Run",
+    "Application.GatewayApplication.executor": "Run",
+    "Application.LoginApplication.executor": "Run",
+    "Application.ServerGatewayApplication.executor": "Run",
+    "Docker.crud-api-img.executor": "Run",
+    "Docker.docker-compose.yaml.postgres: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yaml.server-gateway: Compose Deployment.executor": "Run",
+    "Docker.gateway-img.executor": "Run",
+    "Docker.login-api-img.executor": "Run",
+    "Docker.server-gateway-img.executor": "Run",
+    "JUnit.All in crud-api.executor": "Run",
+    "JUnit.LoginApplicationTests.executor": "Run",
+    "JUnit.controller in crud-api.executor": "Run",
+    "Maven.crud-api [clean].executor": "Run",
+    "Maven.crud-api [install].executor": "Run",
+    "Maven.gateway [install].executor": "Run",
+    "Maven.login [install].executor": "Run",
+    "Maven.server-gateway [install].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.GatewayApplication.executor": "Run",
+    "Spring Boot.LoginApplication.executor": "Run",
+    "Spring Boot.ServerGatewayApplication.executor": "Run",
+    "git-widget-placeholder": "dev",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/LowCost/OneDrive - V8.TECH/Pasta-V8/Repositorios/BACKEND-IA/api-backend-java",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15332031",
+    "project.structure.side.proportion": "0.29676676",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\LowCost\OneDrive - V8.TECH\Pasta-V8\Repositorios\BACKEND-IA\api-backend-java" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="tech.v8.dashboard.model" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="tech.v8.dashboard.config" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
@@ -98,7 +159,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.LoginApplicationTests">
+  <component name="RunManager" selected="Application.CrudApiApplication">
     <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
       <option name="appName" />
       <option name="appServicePlanName" />
@@ -129,24 +190,35 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="login" />
+    <configuration name="CrudApiApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="tech.v8.crudbackendmvp.CrudApiApplication" />
+      <module name="crud-api" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="br.com.v8.login.*" />
+          <option name="PATTERN" value="tech.v8.crudbackendmvp.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="br.com.v8.login" />
-      <option name="MAIN_CLASS_NAME" value="br.com.v8.login.LoginApplicationTests" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="DashApiApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="tech.v8.dashboard.DashApiApplication" />
+      <module name="dashboard" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tech.v8.dashboard.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GatewayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="br.com.v8tech.gateway.GatewayApplication" />
       <module name="gateway" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.v8tech.gateway.GatewayApplication" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="br.com.v8tech.gateway.*" />
@@ -157,16 +229,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+    <configuration name="LoginApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="br.com.v8.login.LoginApplication" />
       <module name="login" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.v8.login.LoginApplication" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="br.com.v8.login.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerGatewayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="br.com.v8.server_gateway.ServerGatewayApplication" />
+      <module name="server-gateway" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.v8.server_gateway.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DashApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="dashboard" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="tech.v8.dashboard.DashApiApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -178,21 +270,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LoginApplicationTests" />
-        <item itemvalue="Spring Boot.GatewayApplication" />
-        <item itemvalue="Spring Boot.LoginApplication" />
+        <item itemvalue="Application.CrudApiApplication" />
+        <item itemvalue="Application.DashApiApplication" />
+        <item itemvalue="Application.LoginApplication" />
+        <item itemvalue="Application.GatewayApplication" />
+        <item itemvalue="Application.ServerGatewayApplication" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -204,6 +302,11 @@
       <updated>1739550503983</updated>
       <workItem from="1739550504999" duration="3567000" />
       <workItem from="1739793381381" duration="1432000" />
+      <workItem from="1741701684268" duration="1362000" />
+      <workItem from="1741967335733" duration="75000" />
+      <workItem from="1741968021838" duration="102000" />
+      <workItem from="1741968221446" duration="1687000" />
+      <workItem from="1742214560084" duration="31643000" />
     </task>
     <task id="LOCAL-00001" summary="Resolving dependences">
       <option name="closed" value="true" />
