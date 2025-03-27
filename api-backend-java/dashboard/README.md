@@ -48,12 +48,12 @@ Configure as seguintes variáveis de ambiente:
 
 A documentação completa está disponível na [pasta docs](/docs):
 
-- [Índice da Documentação](/docs/README.md)
-- [Referência da API](/docs/api-reference.md)
-- [Arquitetura do Sistema](/docs/architecture.md)
-- [Guia de Desenvolvimento](/docs/development-guide.md)
-- [Instruções de Operação](/docs/operations.md)
-- [Resolução de Problemas](/docs/troubleshooting.md)
+- [Índice da Documentação](/api-backend-java/dashboard/docs/README.md)
+- [Referência da API](/api-backend-java/dashboard/docs/api-reference.md)
+- [Arquitetura do Sistema](/api-backend-java/dashboard/docs/architecture.md)
+- [Guia de Desenvolvimento](/api-backend-java/dashboard/docs/development-guide.md)
+- [Instruções de Operação](/api-backend-java/dashboard/docs/operations.md)
+- [Resolução de Problemas](/api-backend-java/dashboard/docs/troubleshooting.md)
 
 ## 🔧 Tecnologias Utilizadas
 
